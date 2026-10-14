@@ -191,6 +191,16 @@ section{margin-top:64px}
 .fac[open] summary::after{content:" −"}
 .fac{margin-bottom:10px}
 @media (max-width:760px){.steps.cols{columns:1}}
+.cfg{border:1.5px solid var(--line);padding:14px 16px;margin-top:12px}
+.cfg-t{font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:700;margin:0 0 10px}
+.cfg-joy{display:inline-flex;gap:8px;align-items:center;font-weight:700;margin-bottom:10px;cursor:pointer}
+.cfg-keys{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.cfg-key{border:1.5px solid var(--line);padding:8px;text-align:center;cursor:pointer;font:inherit;font-weight:800;background:transparent;color:var(--ink)}
+.cfg-key small{display:block;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:11px;margin-top:2px}
+.cfg-key[aria-pressed="true"]{background:var(--lime);color:#0A0A0A;border-color:#0A0A0A}
+.cfg-key:disabled{cursor:default;opacity:1}
+.cfg-out{font-weight:700;margin:12px 0 0}
+@media (max-width:760px){.cfg-keys{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media print{.band,.now,.toast{display:none}.wrap{margin:0}}
 </style>
 </head>
@@ -314,43 +324,58 @@ section{margin-top:64px}
       </article>
       <article class="mod" data-d="2026-10-14" data-s="17:45" data-e="18:45">
         <div class="mhead"><span class="tag">M5</span><h3>Construcción del mando / máquina</h3></div>
-        <p class="desc">Diseñar y fabricar la interfaz física (cartón, botones arcade, joystick) y conectarla con Makey Makey para que funcione como un teclado.</p>
-        <p class="hint mono">Joystick → flechas. Botón 1 → espacio. Botón 2 → clic.</p>
-        <div class="btns"><a class="btn alt" href="#esquema">Ver esquema de conexión</a></div>
+        <p class="desc">Cada equipo diseña su propio mando: cuántos controles, cuáles (joystick, botones o los dos) y dónde van. Después lo fabrica en cartón y lo conecta con Makey Makey para que funcione como un teclado.</p>
+        <p class="hint mono">Un botón ocupa una tecla; un joystick, las cuatro flechas. Máximo 6 teclas.</p>
+        <div class="btns"><a class="btn alt" href="#esquema">Diseñar el mando</a></div>
       </article>
     </div>
     <div class="box" id="esquema">
-      <h4>Esquema de conexión del mando</h4>
+      <h4>Diseña tu mando</h4>
+      <p class="desc" style="margin-top:0">La Makey Makey tiene 6 teclas: ↑ ↓ ← → espacio y clic. Cada botón ocupa una; el joystick ocupa las cuatro flechas. Elegid los controles según vuestro juego.</p>
+      <div class="wiring"><svg viewBox="0 0 900 300" role="img" aria-labelledby="vt vd" font-family="Archivo, system-ui, sans-serif">
+<title id="vt">Tres ejemplos de mando, vistos desde arriba</title>
+<desc id="vd">A: joystick más dos botones (flechas, espacio y clic). B: tres botones (izquierda, derecha y espacio). C: seis botones, uno por cada tecla de la Makey Makey.</desc>
+<rect width="900" height="300" fill="#fff"/>
+<text x="20" y="40" font-size="16" font-weight="800" fill="#111">A · Joystick + 2 botones</text>
+<rect x="20" y="58" width="260" height="176" rx="6" fill="#E8C99A" stroke="#8A6A3A" stroke-width="3"/>
+<path d="M130,234 A20,14 0 0 1 170,234 Z" fill="#B8935B"/>
+<text x="20" y="262" font-size="13" fill="#333">Ej.: Shoot 'em up</text>
+<text x="320" y="40" font-size="16" font-weight="800" fill="#111">B · 3 botones</text>
+<rect x="320" y="58" width="260" height="176" rx="6" fill="#E8C99A" stroke="#8A6A3A" stroke-width="3"/>
+<path d="M430,234 A20,14 0 0 1 470,234 Z" fill="#B8935B"/>
+<text x="320" y="262" font-size="13" fill="#333">Ej.: Plataformas o Runner</text>
+<text x="620" y="40" font-size="16" font-weight="800" fill="#111">C · 6 botones</text>
+<rect x="620" y="58" width="260" height="176" rx="6" fill="#E8C99A" stroke="#8A6A3A" stroke-width="3"/>
+<path d="M730,234 A20,14 0 0 1 770,234 Z" fill="#B8935B"/>
+<text x="620" y="262" font-size="13" fill="#333">Una tecla por botón</text>
+<circle cx="100" cy="135" r="36" fill="#222" stroke="#111" stroke-width="3"/><circle cx="100" cy="135" r="15" fill="#2F6FDB" stroke="#111" stroke-width="2"/><text x="100" y="191" font-size="12" font-weight="700" fill="#111" text-anchor="middle">↑ ↓ ← →</text>
+<circle cx="192" cy="118" r="22" fill="#E03A3A" stroke="#111" stroke-width="3"/><circle cx="192" cy="118" r="15" fill="#F06060"/><text x="192" y="122" font-size="11" font-weight="800" fill="#fff" text-anchor="middle">ESP</text>
+<circle cx="240" cy="172" r="22" fill="#E03A3A" stroke="#111" stroke-width="3"/><circle cx="240" cy="172" r="15" fill="#F06060"/><text x="240" y="176" font-size="11" font-weight="800" fill="#fff" text-anchor="middle">CLIC</text>
+<circle cx="380" cy="146" r="22" fill="#E03A3A" stroke="#111" stroke-width="3"/><circle cx="380" cy="146" r="15" fill="#F06060"/><text x="380" y="152" font-size="18" font-weight="800" fill="#fff" text-anchor="middle">←</text>
+<circle cx="450" cy="146" r="22" fill="#E03A3A" stroke="#111" stroke-width="3"/><circle cx="450" cy="146" r="15" fill="#F06060"/><text x="450" y="152" font-size="18" font-weight="800" fill="#fff" text-anchor="middle">→</text>
+<circle cx="520" cy="146" r="22" fill="#E03A3A" stroke="#111" stroke-width="3"/><circle cx="520" cy="146" r="15" fill="#F06060"/><text x="520" y="150" font-size="11" font-weight="800" fill="#fff" text-anchor="middle">ESP</text>
+<circle cx="690" cy="100" r="22" fill="#E03A3A" stroke="#111" stroke-width="3"/><circle cx="690" cy="100" r="15" fill="#F06060"/><text x="690" y="106" font-size="18" font-weight="800" fill="#fff" text-anchor="middle">↑</text>
+<circle cx="648" cy="146" r="22" fill="#E03A3A" stroke="#111" stroke-width="3"/><circle cx="648" cy="146" r="15" fill="#F06060"/><text x="648" y="152" font-size="18" font-weight="800" fill="#fff" text-anchor="middle">←</text>
+<circle cx="732" cy="146" r="22" fill="#E03A3A" stroke="#111" stroke-width="3"/><circle cx="732" cy="146" r="15" fill="#F06060"/><text x="732" y="152" font-size="18" font-weight="800" fill="#fff" text-anchor="middle">→</text>
+<circle cx="690" cy="192" r="22" fill="#E03A3A" stroke="#111" stroke-width="3"/><circle cx="690" cy="192" r="15" fill="#F06060"/><text x="690" y="198" font-size="18" font-weight="800" fill="#fff" text-anchor="middle">↓</text>
+<circle cx="800" cy="170" r="22" fill="#E03A3A" stroke="#111" stroke-width="3"/><circle cx="800" cy="170" r="15" fill="#F06060"/><text x="800" y="174" font-size="11" font-weight="800" fill="#fff" text-anchor="middle">ESP</text>
+<circle cx="846" cy="120" r="22" fill="#E03A3A" stroke="#111" stroke-width="3"/><circle cx="846" cy="120" r="15" fill="#F06060"/><text x="846" y="124" font-size="11" font-weight="800" fill="#fff" text-anchor="middle">CLIC</text>
+<text x="20" y="290" font-size="12" fill="#555">Hay muchas más combinaciones: solo joystick, 2 botones, joystick + 1… Máximo 6 teclas.</text>
+</svg></div>
+      <div class="cfg">
+        <p class="cfg-t">Configurad vuestro mando</p>
+        <label class="cfg-joy"><input type="checkbox" id="cfg-joy"> Joystick (ocupa ↑ ↓ ← →)</label>
+        <div class="cfg-keys" id="cfg-keys"></div>
+        <p class="cfg-out" id="cfg-out"></p>
+        <pre class="prompt mono" id="cfg-chat"></pre>
+        <div class="btns"><button class="btn alt" data-copy="cfg-chat">Copiar para el chat de ArcadIA</button></div>
+      </div>
       <div class="refs">
         <figure><img src="assets/img/joystick-boton.jpg" alt="Joystick arcade con cuatro microinterruptores y un botón arcade rojo"><figcaption>Joystick con 4 microinterruptores y botón arcade. Cada interruptor tiene 3 patas.</figcaption></figure>
         <figure><img src="assets/img/caja-carton.jpg" alt="Caja de cartón plana delante de un portátil"><figcaption>Caja de cartón cortada con láser y plegada, delante del portátil.</figcaption></figure>
       </div>
-      <div class="wiring"><svg viewBox="0 0 900 320" role="img" aria-labelledby="bt bd" font-family="Archivo, system-ui, sans-serif">
-<title id="bt">Distribución en la caja, vista desde arriba</title>
-<desc id="bd">El joystick va a la izquierda de la tapa y los dos botones a la derecha. La Makey Makey va dentro de la caja, pegada al fondo, con el USB saliendo por la parte de atrás hacia el portátil.</desc>
-<text x="30" y="28" font-size="16" font-weight="800" fill="#000">Distribución en la caja · vista desde arriba</text>
-<rect x="320" y="44" width="260" height="34" fill="#333"/>
-<text x="450" y="66" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Portátil</text>
-<rect x="150" y="100" width="600" height="190" fill="#E8C99A" stroke="#8A6A3A" stroke-width="3"/>
-<rect x="385" y="118" width="130" height="80" fill="none" stroke="#E04A3F" stroke-width="3" stroke-dasharray="8 6"/>
-<text x="450" y="152" font-size="13" font-weight="800" fill="#000" text-anchor="middle">Makey Makey</text>
-<text x="450" y="170" font-size="12" fill="#000" text-anchor="middle">dentro, pegada</text>
-<text x="450" y="185" font-size="12" fill="#000" text-anchor="middle">al fondo</text>
-<path d="M450,118 V78" stroke="#333" stroke-width="5" fill="none"/>
-<circle cx="450" cy="100" r="7" fill="#fff" stroke="#000" stroke-width="2"/>
-<text x="462" y="94" font-size="12" font-weight="700" fill="#000">agujero USB</text>
-<circle cx="270" cy="195" r="46" fill="#222"/>
-<circle cx="270" cy="195" r="20" fill="#2F6FDB"/>
-<text x="270" y="262" font-size="13" font-weight="800" fill="#000" text-anchor="middle">Joystick · flechas</text>
-<circle cx="610" cy="180" r="28" fill="#E04A3F" stroke="#000" stroke-width="2"/>
-<text x="610" y="185" font-size="16" font-weight="800" fill="#fff" text-anchor="middle">1</text>
-<text x="610" y="226" font-size="13" font-weight="800" fill="#000" text-anchor="middle">Espacio</text>
-<circle cx="690" cy="180" r="28" fill="#E04A3F" stroke="#000" stroke-width="2"/>
-<text x="690" y="185" font-size="16" font-weight="800" fill="#fff" text-anchor="middle">2</text>
-<text x="690" y="226" font-size="13" font-weight="800" fill="#000" text-anchor="middle">Clic</text>
-<path d="M425,290 A25,18 0 0 1 475,290 Z" fill="#B8935B"/>
-<text x="450" y="312" font-size="12" fill="#000" text-anchor="middle">muesca para abrir</text>
-</svg></div>
+      
+      <p class="sim" style="margin:18px 0 6px">Ejemplo A · joystick + 2 botones</p>
       <div class="wiring"><svg viewBox="0 0 1000 620" role="img" aria-labelledby="wt wd" font-family="Archivo, system-ui, sans-serif">
 <title id="wt">Conexión del mando con Makey Makey</title>
 <desc id="wd">La pata NO de cada microinterruptor va con una pinza de color a su tecla: joystick a las cuatro flechas, botón 1 a SPACE y botón 2 a CLICK. Las patas COM se unen a una tira de cinta de cobre alrededor del joystick, y de ahí un cable negro va a EARTH.</desc>
@@ -407,16 +432,67 @@ section{margin-top:64px}
 <circle cx="838" cy="540" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="838" cy="540" r="3" fill="#111"/>
 <circle cx="420" cy="356" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="420" cy="356" r="3" fill="#111"/>
 </svg></div>
+      <p class="sim" style="margin:18px 0 6px">Ejemplo C · 6 botones</p>
+      <div class="wiring"><svg viewBox="0 0 1000 620" role="img" aria-labelledby="w6t w6d" font-family="Archivo, system-ui, sans-serif">
+<title id="w6t">Conexión de un mando de 6 botones con Makey Makey</title>
+<desc id="w6d">Cada botón tiene un microinterruptor. Su pata NO va con una pinza de color a su tecla de la Makey Makey; todas las patas COM se unen con un cable negro que va a EARTH.</desc>
+<rect width="1000" height="620" fill="#fff"/>
+<rect x="40" y="20" width="130" height="78" rx="6" fill="#444" stroke="#111" stroke-width="3"/><rect x="50" y="30" width="110" height="58" fill="#9fd3ff"/><rect x="28" y="96" width="154" height="10" rx="3" fill="#666" stroke="#111" stroke-width="2"/>
+<path d="M250,122 C250,70 200,80 182,100" fill="none" stroke="#111" stroke-width="10" stroke-linecap="round"/><path d="M250,122 C250,70 200,80 182,100" fill="none" stroke="#eee" stroke-width="6" stroke-linecap="round"/>
+<rect x="40" y="120" width="420" height="270" rx="12" fill="#E03A3A" stroke="#111" stroke-width="4"/><rect x="52" y="132" width="396" height="246" rx="6" fill="#FAFAFA"/>
+<text x="40" y="420" font-size="15" font-weight="800" fill="#E03A3A">Makey Makey</text>
+<rect x="128" y="155" width="44" height="160" fill="#E03A3A" stroke="#111" stroke-width="3"/><rect x="70" y="213" width="160" height="44" fill="#E03A3A" stroke="#111" stroke-width="3"/><rect x="129.5" y="214.5" width="41" height="41" fill="#E03A3A"/>
+<circle cx="150" cy="177" r="13" fill="#C9C9C9" stroke="#111" stroke-width="2"/>
+<circle cx="150" cy="293" r="13" fill="#C9C9C9" stroke="#111" stroke-width="2"/>
+<circle cx="92" cy="235" r="13" fill="#C9C9C9" stroke="#111" stroke-width="2"/>
+<circle cx="208" cy="235" r="13" fill="#C9C9C9" stroke="#111" stroke-width="2"/>
+<circle cx="310" cy="225" r="36" fill="#E03A3A" stroke="#111" stroke-width="3"/><circle cx="310" cy="225" r="22" fill="#C9C9C9" stroke="#111" stroke-width="2"/>
+<circle cx="400" cy="225" r="36" fill="#E03A3A" stroke="#111" stroke-width="3"/><circle cx="400" cy="225" r="22" fill="#C9C9C9" stroke="#111" stroke-width="2"/>
+<text x="310" y="284" font-size="14" font-weight="800" fill="#E03A3A" text-anchor="middle">SPACE</text><text x="400" y="284" font-size="14" font-weight="800" fill="#E03A3A" text-anchor="middle">CLICK</text>
+<rect x="60" y="340" width="380" height="32" fill="#C9C9C9" stroke="#111" stroke-width="3"/><rect x="220" y="326" width="70" height="16" fill="#E03A3A" stroke="#111" stroke-width="2"/><text x="255" y="338" font-size="11" font-weight="800" fill="#fff" text-anchor="middle">EARTH</text>
+<path d="M602,240 C540,60 70,40 92,213" fill="none" stroke="#111" stroke-width="12" stroke-linecap="round"/><path d="M602,240 C540,60 70,40 92,213" fill="none" stroke="#8A4FD0" stroke-width="7" stroke-linecap="round"/>
+<path d="M722,240 C680,30 160,40 150,155" fill="none" stroke="#111" stroke-width="12" stroke-linecap="round"/><path d="M722,240 C680,30 160,40 150,155" fill="none" stroke="#3B6FE0" stroke-width="7" stroke-linecap="round"/>
+<path d="M842,240 C860,10 240,50 208,213" fill="none" stroke="#111" stroke-width="12" stroke-linecap="round"/><path d="M842,240 C860,10 240,50 208,213" fill="none" stroke="#F08A24" stroke-width="7" stroke-linecap="round"/>
+<path d="M602,470 C480,540 160,500 150,315" fill="none" stroke="#111" stroke-width="12" stroke-linecap="round"/><path d="M602,470 C480,540 160,500 150,315" fill="none" stroke="#2EA84A" stroke-width="7" stroke-linecap="round"/>
+<path d="M722,470 C620,580 330,430 310,247" fill="none" stroke="#111" stroke-width="12" stroke-linecap="round"/><path d="M722,470 C620,580 330,430 310,247" fill="none" stroke="#F5C518" stroke-width="7" stroke-linecap="round"/>
+<path d="M842,470 C780,600 430,430 400,247" fill="none" stroke="#111" stroke-width="12" stroke-linecap="round"/><path d="M842,470 C780,600 430,430 400,247" fill="none" stroke="#18B3B0" stroke-width="7" stroke-linecap="round"/>
+<path d="M638,240 C680,262 716,262 758,240 C800,262 836,262 878,240 C960,300 960,420 878,470 C836,492 800,492 758,470 C716,492 680,492 638,470 C560,500 470,440 420,360" fill="none" stroke="#111" stroke-width="11" stroke-linecap="round"/><path d="M638,240 C680,262 716,262 758,240 C800,262 836,262 878,240 C960,300 960,420 878,470 C836,492 800,492 758,470 C716,492 680,492 638,470 C560,500 470,440 420,360" fill="none" stroke="#2B2B2B" stroke-width="6" stroke-linecap="round"/>
+<rect x="595" y="140" width="50" height="60" rx="6" fill="#E03A3A" stroke="#111" stroke-width="3"/><ellipse cx="620" cy="140" rx="32" ry="9" fill="#F06060" stroke="#111" stroke-width="3"/><rect x="590" y="200" width="60" height="26" rx="3" fill="#9AA0A6" stroke="#111" stroke-width="2"/><rect x="597" y="226" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><rect x="633" y="226" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><text x="620" y="186" font-size="22" font-weight="800" fill="#fff" text-anchor="middle">←</text>
+<rect x="715" y="140" width="50" height="60" rx="6" fill="#E03A3A" stroke="#111" stroke-width="3"/><ellipse cx="740" cy="140" rx="32" ry="9" fill="#F06060" stroke="#111" stroke-width="3"/><rect x="710" y="200" width="60" height="26" rx="3" fill="#9AA0A6" stroke="#111" stroke-width="2"/><rect x="717" y="226" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><rect x="753" y="226" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><text x="740" y="186" font-size="22" font-weight="800" fill="#fff" text-anchor="middle">↑</text>
+<rect x="835" y="140" width="50" height="60" rx="6" fill="#E03A3A" stroke="#111" stroke-width="3"/><ellipse cx="860" cy="140" rx="32" ry="9" fill="#F06060" stroke="#111" stroke-width="3"/><rect x="830" y="200" width="60" height="26" rx="3" fill="#9AA0A6" stroke="#111" stroke-width="2"/><rect x="837" y="226" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><rect x="873" y="226" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><text x="860" y="186" font-size="22" font-weight="800" fill="#fff" text-anchor="middle">→</text>
+<rect x="595" y="370" width="50" height="60" rx="6" fill="#E03A3A" stroke="#111" stroke-width="3"/><ellipse cx="620" cy="370" rx="32" ry="9" fill="#F06060" stroke="#111" stroke-width="3"/><rect x="590" y="430" width="60" height="26" rx="3" fill="#9AA0A6" stroke="#111" stroke-width="2"/><rect x="597" y="456" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><rect x="633" y="456" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><text x="620" y="416" font-size="22" font-weight="800" fill="#fff" text-anchor="middle">↓</text>
+<rect x="715" y="370" width="50" height="60" rx="6" fill="#E03A3A" stroke="#111" stroke-width="3"/><ellipse cx="740" cy="370" rx="32" ry="9" fill="#F06060" stroke="#111" stroke-width="3"/><rect x="710" y="430" width="60" height="26" rx="3" fill="#9AA0A6" stroke="#111" stroke-width="2"/><rect x="717" y="456" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><rect x="753" y="456" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><text x="740" y="412" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">ESP</text>
+<rect x="835" y="370" width="50" height="60" rx="6" fill="#E03A3A" stroke="#111" stroke-width="3"/><ellipse cx="860" cy="370" rx="32" ry="9" fill="#F06060" stroke="#111" stroke-width="3"/><rect x="830" y="430" width="60" height="26" rx="3" fill="#9AA0A6" stroke="#111" stroke-width="2"/><rect x="837" y="456" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><rect x="873" y="456" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><text x="860" y="412" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">CLIC</text>
+<circle cx="602" cy="240" r="10" fill="#8A4FD0" stroke="#111" stroke-width="3"/><circle cx="602" cy="240" r="3" fill="#111"/><circle cx="92" cy="213" r="10" fill="#8A4FD0" stroke="#111" stroke-width="3"/><circle cx="92" cy="213" r="3" fill="#111"/>
+<circle cx="722" cy="240" r="10" fill="#3B6FE0" stroke="#111" stroke-width="3"/><circle cx="722" cy="240" r="3" fill="#111"/><circle cx="150" cy="155" r="10" fill="#3B6FE0" stroke="#111" stroke-width="3"/><circle cx="150" cy="155" r="3" fill="#111"/>
+<circle cx="842" cy="240" r="10" fill="#F08A24" stroke="#111" stroke-width="3"/><circle cx="842" cy="240" r="3" fill="#111"/><circle cx="208" cy="213" r="10" fill="#F08A24" stroke="#111" stroke-width="3"/><circle cx="208" cy="213" r="3" fill="#111"/>
+<circle cx="602" cy="470" r="10" fill="#2EA84A" stroke="#111" stroke-width="3"/><circle cx="602" cy="470" r="3" fill="#111"/><circle cx="150" cy="315" r="10" fill="#2EA84A" stroke="#111" stroke-width="3"/><circle cx="150" cy="315" r="3" fill="#111"/>
+<circle cx="722" cy="470" r="10" fill="#F5C518" stroke="#111" stroke-width="3"/><circle cx="722" cy="470" r="3" fill="#111"/><circle cx="310" cy="247" r="10" fill="#F5C518" stroke="#111" stroke-width="3"/><circle cx="310" cy="247" r="3" fill="#111"/>
+<circle cx="842" cy="470" r="10" fill="#18B3B0" stroke="#111" stroke-width="3"/><circle cx="842" cy="470" r="3" fill="#111"/><circle cx="400" cy="247" r="10" fill="#18B3B0" stroke="#111" stroke-width="3"/><circle cx="400" cy="247" r="3" fill="#111"/>
+<circle cx="638" cy="240" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="638" cy="240" r="3" fill="#111"/>
+<circle cx="758" cy="240" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="758" cy="240" r="3" fill="#111"/>
+<circle cx="878" cy="240" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="878" cy="240" r="3" fill="#111"/>
+<circle cx="878" cy="470" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="878" cy="470" r="3" fill="#111"/>
+<circle cx="758" cy="470" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="758" cy="470" r="3" fill="#111"/>
+<circle cx="638" cy="470" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="638" cy="470" r="3" fill="#111"/>
+<circle cx="420" cy="360" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="420" cy="360" r="3" fill="#111"/>
+<text x="40" y="478" font-size="20" font-weight="800" fill="#111">Ejemplo: 6 botones</text>
+<text x="40" y="502" font-size="13" fill="#333">Pinza de color: NO de cada botón a su tecla.</text>
+<text x="40" y="520" font-size="13" fill="#333">Cable negro: une todos los COM y va a EARTH.</text>
+<text x="40" y="538" font-size="13" fill="#333">Con menos botones, solo conectas los que tengas.</text>
+</svg></div>
       <ol class="steps">
-        <li>Monta el joystick y los dos botones en la tapa: joystick a la izquierda, botones a la derecha.</li>
-        <li>Pega la Makey Makey en el fondo de la caja y saca el USB por un agujero en el lado que mira al portátil.</li>
-        <li>Cada microinterruptor tiene 3 patas con letras impresas: COM, NO y NC. Usa solo COM y NO. NC se queda libre.</li>
-        <li>NO de cada interruptor a su tecla con una pinza: los 4 del joystick a las flechas, botón 1 a espacio, botón 2 a clic.</li>
-        <li>Une todas las patas COM con un cable o una tira de cinta de cobre y llévalas a EARTH con una pinza.</li>
-        <li>Antes de cerrar la caja, conecta el USB y prueba cada botón en un editor de texto.</li>
-        <li>Si arriba y abajo (o izquierda y derecha) salen al revés, intercambia esas dos pinzas: la palanca pulsa el interruptor del lado contrario.</li>
+        <li>Decidid el diseño: qué controles, dónde van y qué tecla hace cada uno. Máximo 6 teclas.</li>
+        <li>Marcad y cortad los agujeros de la tapa según el tamaño de vuestros botones y joystick.</li>
+        <li>Pegad la Makey Makey en el fondo de la caja y sacad el USB por un agujero en el lado que mira al portátil.</li>
+        <li>Cada microinterruptor tiene 3 patas con letras impresas: COM, NO y NC. Usad solo COM y NO. NC se queda libre.</li>
+        <li>NO de cada control a su tecla con una pinza. El joystick tiene 4 microinterruptores: uno por flecha.</li>
+        <li>Unid todas las patas COM con un cable o una tira de cinta de cobre y llevadlas a EARTH con una pinza.</li>
+        <li>Antes de cerrar la caja, conectad el USB y probad cada control en un editor de texto.</li>
+        <li>Si con el joystick arriba y abajo (o izquierda y derecha) salen al revés, intercambiad esas dos pinzas: la palanca pulsa el interruptor del lado contrario.</li>
+        <li>Decidle a ArcadIA qué teclas tiene vuestro mando (usad el texto del configurador).</li>
       </ol>
-      <p class="hint mono">Material por mando: 7 pinzas de cocodrilo (6 señales + 1 tierra) y cable o cinta de cobre para unir los COM. Las pinzas se agarran directamente a las patas del interruptor.</p>
+      <p class="hint mono">Material: una pinza de cocodrilo por tecla usada + 1 para EARTH (como mucho 7), y cable o cinta de cobre para unir los COM.</p>
     </div>
   </div>
 
@@ -431,10 +507,10 @@ section{margin-top:64px}
 
   <article class="mod" data-d="2026-10-15" data-s="09:15" data-e="09:30">
     <div class="mhead"><span class="tag">M7</span><h3>Check matinal y elección de reto</h3><span class="time">9:15–9:30</span></div>
-    <p class="desc">Repaso de lo aprendido y de la propuesta de juego de cada equipo. Cada grupo acuerda qué teclas usará el mando y se reparte entre vibe coding y construcción.</p>
+    <p class="desc">Repaso de lo aprendido y de la propuesta de juego de cada equipo. Cada grupo revisa el diseño de su mando y qué teclas usa, y se reparte entre vibe coding y construcción.</p>
     <div class="box"><h4>Teclas del mando</h4>
       <div class="keys"><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>Espacio</kbd><kbd>Clic</kbd></div>
-      <p class="hint mono">Los juegos de ArcadIA usan exactamente estas 6 entradas, así que el mando funciona sin tocar nada. Lo que hace cada una se cambia por el chat: «que el espacio dispare», «que arriba salte».</p>
+      <p class="hint mono">Los juegos de ArcadIA usan estas 6 entradas. Si vuestro mando no tiene alguna, decídselo a ArcadIA por el chat: «nuestro mando solo tiene izquierda, derecha y espacio». Lo que hace cada tecla también se cambia así: «que el espacio salte».</p>
     </div>
   </article>
 
@@ -592,6 +668,35 @@ section{margin-top:64px}
     } else pill.hidden=true;
   }
   tick(); setInterval(tick,30000);
+
+  (function(){
+    var keys=[['up','↑','arriba'],['down','↓','abajo'],['left','←','izquierda'],['right','→','derecha'],['space','Espacio','espacio'],['click','Clic','clic']];
+    var box=document.getElementById('cfg-keys'), joy=document.getElementById('cfg-joy');
+    if(!box) return;
+    var on={left:true,right:true,space:true};
+    keys.forEach(function(k){
+      var b=document.createElement('button'); b.type='button'; b.className='cfg-key'; b.dataset.k=k[0];
+      b.innerHTML=k[1]+'<small></small>';
+      b.addEventListener('click',function(){ if(b.disabled) return; on[k[0]]=!on[k[0]]; draw(); });
+      box.appendChild(b);
+    });
+    joy.addEventListener('change',draw);
+    function draw(){
+      var j=joy.checked, used=[], nb=0;
+      keys.forEach(function(k){
+        var b=box.querySelector('[data-k="'+k[0]+'"]'), arrow=k[0].length>0&&['up','down','left','right'].indexOf(k[0])>-1;
+        var active=(arrow&&j)||(!(arrow&&j)&&on[k[0]]);
+        b.disabled=arrow&&j; b.setAttribute('aria-pressed',active?'true':'false');
+        b.querySelector('small').textContent=active?((arrow&&j)?'joystick':'botón'):'sin usar';
+        if(active){used.push(k[2]); if(!(arrow&&j)) nb++;}
+      });
+      var desc=(j?'joystick':'')+(j&&nb?' + ':'')+(nb?nb+(nb==1?' botón':' botones'):'');
+      document.getElementById('cfg-out').textContent=used.length?('Vuestro mando: '+desc+' · '+used.length+' teclas · '+(used.length+1)+' pinzas'):'Elegid al menos un control.';
+      var list=used.length>1?used.slice(0,-1).join(', ')+' y '+used[used.length-1]:used[0]||'';
+      document.getElementById('cfg-chat').textContent=used.length?('Nuestro mando solo tiene estas teclas: '+list+'. Haz que el juego se juegue solo con ellas.'):'';
+    }
+    draw();
+  })();
 })();
 </script>
 </body>
