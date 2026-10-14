@@ -183,6 +183,14 @@ section{margin-top:64px}
 .shot{padding:0;border:1.5px solid var(--line);background:none;cursor:zoom-in;aspect-ratio:3/4;overflow:hidden}
 .shot img{display:block;width:100%;height:100%;object-fit:cover}
 @media (max-width:760px){.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.steps.cols{columns:2;column-gap:32px}
+.fac summary{cursor:pointer;list-style:none}
+.fac summary::-webkit-details-marker{display:none}
+.fac summary h4{display:inline;margin:0}
+.fac summary::after{content:" +";font-family:"JetBrains Mono",monospace;font-weight:700}
+.fac[open] summary::after{content:" −"}
+.fac{margin-bottom:10px}
+@media (max-width:760px){.steps.cols{columns:1}}
 @media print{.band,.now,.toast{display:none}.wrap{margin:0}}
 </style>
 </head>
@@ -204,7 +212,7 @@ section{margin-top:64px}
 
 <div class="now">
   <nav aria-label="Secciones">
-    <a href="#dia1">Día 1</a><a href="#dia2">Día 2</a><a href="#reto">El reto</a><a href="#recursos">Recursos</a>
+    <a href="#dia1">Día 1</a><a href="#dia2">Día 2</a><a href="#reto">El reto</a><a href="#recursos">Recursos</a><a href="#facilitacion">Facilitación</a>
   </nav>
   <span class="pill" id="nowpill" hidden></span>
 </div>
@@ -212,7 +220,7 @@ section{margin-top:64px}
 <section id="reto">
   <div class="dayhead"><h2>El reto</h2></div>
   <div class="grid3">
-    <div class="card"><h3>El juego vive en el navegador</h3><p>Una web en HTML y JavaScript generada con IA. Se abre con una URL, sin instalar nada.</p></div>
+    <div class="card"><h3>El juego vive en el navegador</h3><p>Describís el juego con vuestras palabras y ArcadIA lo convierte en un juego jugable al momento. Se abre con una URL, sin instalar nada.</p></div>
     <div class="card"><h3>El mando es un teclado</h3><p>Con Makey Makey, cada botón envía una tecla. El juego solo tiene que leer teclas.</p></div>
     <div class="card"><h3>Dos subgrupos en paralelo</h3><p>Una parte hace vibe coding del juego, la otra construye el mando. Se juntan en la integración.</p></div>
   </div>
@@ -249,9 +257,10 @@ section{margin-top:64px}
     <p class="desc">Jugamos varias demos breves y desmontamos qué las hace funcionar: objetivo, personaje, reglas, obstáculos, puntuación y controles. El resultado es una clasificación colectiva que sirve de plantilla para diseñar el juego propio.</p>
     <div class="games">
       <div><b>Plataformas</b><a href="https://poki.com/es/g/we-skate" target="_blank" rel="noopener">We Skate ↗</a><a href="https://poki.com/es/g/poor-bunny" target="_blank" rel="noopener">Poor Bunny ↗</a></div>
-      <div><b>Corredor</b><a href="https://poki.com/es/g/dinosaur-game" target="_blank" rel="noopener">Dinosaur Game ↗</a><a href="https://poki.com/es/g/snow-yeet" target="_blank" rel="noopener">Snow Yeet ↗</a></div>
-      <div><b>Disparos</b><a href="https://retro-games.org/es/arcade-games/space-invaders" target="_blank" rel="noopener">Space Invaders ↗</a><a href="https://es.y8.com/games/space_arcade_the_game" target="_blank" rel="noopener">Space Arcade ↗</a></div>
+      <div><b>Runner</b><a href="https://poki.com/es/g/dinosaur-game" target="_blank" rel="noopener">Dinosaur Game ↗</a><a href="https://poki.com/es/g/snow-yeet" target="_blank" rel="noopener">Snow Yeet ↗</a></div>
+      <div><b>Shoot 'em up</b><a href="https://retro-games.org/es/arcade-games/space-invaders" target="_blank" rel="noopener">Space Invaders ↗</a><a href="https://es.y8.com/games/space_arcade_the_game" target="_blank" rel="noopener">Space Arcade ↗</a></div>
     </div>
+    <p class="hint mono">Son los tres tipos de juego que ofrece ArcadIA como punto de partida.</p>
     <button class="canvas" data-img="tipos" aria-label="Ampliar canvas de tipos y análisis forense"><img src="assets/canvas/tipos-analisis-forense.jpg" alt="Canvas: tipos de videojuegos (plataformas, disparos, corredor), análisis forense de un videojuego y hazlo educativo"></button>
     <div class="btns"><a class="btn alt" href="assets/canvas/tipos-analisis-forense.pdf" download>Descargar PDF</a></div>
   </article>
@@ -264,8 +273,18 @@ section{margin-top:64px}
     <div class="layers">
       <div><b>Rol</b>Quién es la IA</div>
       <div><b>Contexto</b>Tema STEAM, público, estilo</div>
-      <div><b>Tarea</b>Qué juego hay que crear</div>
-      <div><b>Formato</b>Un solo HTML, teclas, pantallas</div>
+      <div><b>Tarea</b>Qué juego queremos</div>
+      <div><b>Formato</b>Estilo, colores, controles</div>
+    </div>
+    <div class="box">
+      <h4>Del canvas al asistente de ArcadIA</h4>
+      <p class="desc" style="margin-top:0">El asistente hace 12 preguntas, una por pantalla. Las casillas del canvas son casi las mismas, así que el mapeo en papel se pasa tal cual.</p>
+      <ol class="steps cols">
+        <li>Punto de partida (tipo de juego)</li><li>Objetivo</li><li>Personaje</li><li>Escenario</li><li>Mecánica</li><li>Controles</li><li>Obstáculos</li><li>Puntos y dificultad</li><li>Fin de partida</li><li>Otros elementos</li><li>Estilo gráfico</li><li>Gama de colores</li>
+      </ol>
+      <p class="desc">ArcadIA no escribe código: cambia la «ficha» del juego y cada cambio se comprueba antes de guardarse. Por eso el juego nunca se queda roto, aunque la IA se equivoque.</p>
+      <p class="desc">Solo el personaje es obligatorio: lo que dejéis en blanco lo decide ArcadIA. Sí hay que elegir tipo de juego, estilo (pixel art, flat, línea o sketch) y gama de colores (Atardecer, Bosque, Océano, Neón, Pastel, Blanco y negro o la vuestra).</p>
+      <p class="hint mono">ArcadIA cambia personajes con derechos de autor (Mario, Pikachu…), armas reales y personas reales por versiones inventadas. Mejor inventarlos desde el principio. Guardad los dibujos del storyboard: luego se pueden subir al juego.</p>
     </div>
     <div class="box">
       <h4>Prompt de la pantalla de inicio</h4>
@@ -283,6 +302,14 @@ section{margin-top:64px}
         <div class="mhead"><span class="tag">M4</span><h3>Vibe coding: primera versión del juego</h3></div>
         <p class="desc">Probar, detectar fallos, reformular y volver a generar hasta tener una versión jugable en el navegador.</p>
         <p class="hint mono">Entrad con el usuario y la contraseña de vuestra tarjeta.</p>
+        <ul class="steps">
+          <li>Un cambio por mensaje: «que los enemigos sean más rápidos».</li>
+          <li>Tenéis 40 mensajes y 30 imágenes por equipo. Pensad antes de enviar.</li>
+          <li>Clic en el juego para jugar, clic en el chat para escribir.</li>
+          <li>«Deshacer» y «Versiones» no gastan mensajes: probad sin miedo.</li>
+          <li>«Subir mi dibujo»: foto de vuestro personaje en papel, tal cual o al estilo del juego.</li>
+          <li>La música se pide por el chat. Con seis equipos, auriculares o «Silenciar».</li>
+        </ul>
         <div class="btns"><a class="btn" href="https://www.arcadiabyflu.com/" target="_blank" rel="noopener">Abrir ArcadIA ↗</a></div>
       </article>
       <article class="mod" data-d="2026-10-14" data-s="17:45" data-e="18:45">
@@ -407,7 +434,7 @@ section{margin-top:64px}
     <p class="desc">Repaso de lo aprendido y de la propuesta de juego de cada equipo. Cada grupo acuerda qué teclas usará el mando y se reparte entre vibe coding y construcción.</p>
     <div class="box"><h4>Teclas del mando</h4>
       <div class="keys"><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>Espacio</kbd><kbd>Clic</kbd></div>
-      <p class="hint mono">El juego tiene que responder solo a estas teclas. Pedidlo así en el prompt.</p>
+      <p class="hint mono">Los juegos de ArcadIA usan exactamente estas 6 entradas, así que el mando funciona sin tocar nada. Lo que hace cada una se cambia por el chat: «que el espacio dispare», «que arriba salte».</p>
     </div>
   </article>
 
@@ -426,19 +453,73 @@ section{margin-top:64px}
   <article class="mod" data-d="2026-10-15" data-s="10:15" data-e="11:15">
     <div class="mhead"><span class="tag">M9</span><h3>Integración y pruebas</h3><span class="time">10:15–11:15</span></div>
     <p class="desc">Se unen juego y mando. Cada equipo prueba la cadena completa (botón, ordenador, juego), resuelve errores y ajusta la jugabilidad en varias iteraciones.</p>
+    <p class="hint mono">Antes de jugar con el mando, un clic dentro del juego: las teclas van a donde se hizo el último clic. Si no, las flechas escriben en el chat. El botón CLIC hace clic donde esté el ratón: dejadlo encima del juego.</p>
     <div class="btns"><a class="btn" href="https://www.arcadiabyflu.com/" target="_blank" rel="noopener">Abrir ArcadIA ↗</a></div>
   </article>
 
   <article class="mod" data-d="2026-10-15" data-s="11:15" data-e="12:00">
     <div class="mhead"><span class="tag">M10</span><h3>Arcade demo y presentación</h3><span class="time">11:15–12:00</span></div>
     <p class="desc">Cada equipo presenta su máquina en un minuto y el resto la juega rotando por los puestos. Votación del público con tarjetas de color.</p>
+    <p class="hint mono">Cada juego tiene su página pública en /juego/nombre-del-equipo (botón «Ver página pública» del Estudio). Sigue funcionando después del taller: se puede enseñar en casa.</p>
   </article>
 
   <article class="mod" data-d="2026-10-15" data-s="12:00" data-e="12:20">
     <div class="mhead"><span class="tag">M11</span><h3>Mural</h3><span class="time">12:00–12:15</span></div>
     <p class="mural">“La IA nunca debería decidir…”</p>
     <p class="desc">Durante toda la mañana cada participante completa la frase en el mural colectivo. Lo comentamos en grupo al final del día 2.</p>
+    <div class="box">
+      <h4>Huella de vuestro juego</h4>
+      <p class="desc" style="margin-top:0">En el Estudio, la pestaña «Huella de vuestro juego» estima la energía y el CO₂e que ha gastado crear vuestro juego. Generar imágenes gasta mucho más que el texto.</p>
+      <p class="hint mono">Para el debate: ¿cuántas cargas de móvil ha costado vuestro juego? ¿Qué imágenes no hacían falta?</p>
+    </div>
   </article>
+</section>
+
+<section id="facilitacion">
+  <div class="dayhead"><h2>Facilitación</h2><p>Solo para el equipo FLU</p></div>
+  <details class="box fac" open>
+    <summary><h4>Antes</h4></summary>
+    <ul class="steps">
+      <li>Imprimir las tarjetas al crear la sesión: las contraseñas solo se ven una vez. Si alguien la pierde, «Nueva contraseña» en la página de la sesión.</li>
+      <li>Comprobar que la sesión está abierta y revisar los límites (40 mensajes y 30 imágenes por equipo por defecto).</li>
+      <li>Decidir si se activa la aprobación manual de dibujos.</li>
+      <li>Al llegar al aula, probar con su wifi: entrar como alumno en una ventana de incógnito, crear un juego, jugarlo y hacer un cambio por el chat. Comprobar que la dirección impresa en las tarjetas es la correcta.</li>
+    </ul>
+  </details>
+  <details class="box fac">
+    <summary><h4>Durante</h4></summary>
+    <ul class="steps">
+      <li>Tener abierto el panel en directo con «Activar sonido» para los avisos. Cada aviso se cierra con «Atendido».</li>
+      <li>Un aviso de «preocupación» lo ve solo el ArcadiaTeam: acercarse en persona, con discreción.</li>
+      <li>«Pausar a todos» para explicar algo en común. El juego se sigue pudiendo jugar.</li>
+      <li>«+10 mensajes» o «+10 imágenes» para el equipo que se quede sin.</li>
+      <li>«Escribir como ArcadiaTeam» para orientar a un equipo atascado desde el panel.</li>
+      <li>Panel con «Activar sonido»: si se recarga la página, hacer clic en cualquier parte para que vuelva a pitar.</li>
+    </ul>
+  </details>
+  <details class="box fac">
+    <summary><h4>Problemas frecuentes</h4></summary>
+    <ul class="steps">
+      <li><b>El juego no responde al teclado o al mando.</b> Clic dentro del juego.</li>
+      <li><b>«Ya estoy pensando otro cambio…»</b> Otro miembro del equipo ha escrito a la vez. Esperar, como mucho 3 minutos.</li>
+      <li><b>«No he conseguido hacer ese cambio sin romper el juego…»</b> Pedirlo de otra forma o en partes más pequeñas.</li>
+      <li><b>«No hemos podido hablar con el servidor…»</b> Es la wifi del aula. Si les pasa a todos y no se arregla, pausar a todos y avisar a Xavi.</li>
+      <li><b>Imagen fallida.</b> «Probar otra vez». Si el filtro la descarta, «Otra versión» o describirla de otra manera. El juego sigue con formas de color.</li>
+      <li><b>Sin mensajes o imágenes.</b> «Ver equipo» → «+10». Deshacer y versiones siguen funcionando.</li>
+      <li><b>Cuenta bloqueada</b> (10 fallos en 15 min). Esperar 15 minutos; mientras, usar la cuenta de otro miembro del equipo.</li>
+      <li><b>Contraseña perdida.</b> «Nueva contraseña» en la página de la sesión. Solo se ve una vez: apuntarla.</li>
+      <li><b>No consiguen crear el juego.</b> Tienen 5 intentos y el tope no se amplía desde el panel: avisar a Xavi.</li>
+    </ul>
+  </details>
+  <details class="box fac">
+    <summary><h4>Después</h4></summary>
+    <ul class="steps">
+      <li>«Cerrar sesión» desactiva las cuentas pero mantiene las páginas públicas de los juegos.</li>
+      <li>Para compartir los juegos: en el panel, «Abrir juego» y copiar la dirección de la pestaña.</li>
+      <li>No usar «Borrar sesión» si los juegos tienen que seguir online: lo borra todo.</li>
+      <li>Los chats se purgan a mano cuando pasa el plazo de conservación (<code>npm run purgar -w @arcadia/web</code>).</li>
+    </ul>
+  </details>
 </section>
 
 <section id="recursos">
@@ -458,7 +539,6 @@ section{margin-top:64px}
     <div class="card"><h3>Agenda día 1</h3><p>Entender y crear.</p><a class="btn alt" href="docs/agenda-dia1.png" target="_blank" rel="noopener">Ver</a></div>
     <div class="card"><h3>Agenda día 2</h3><p>Construir y limitar.</p><a class="btn alt" href="docs/agenda-dia2.png" target="_blank" rel="noopener">Ver</a></div>
   </div>
-
 </section>
 
 <footer class="foot"><p>ArcadIA es una plataforma-taller diseñada e implementada por el equipo FLU (Santi, Julia y Xavi). La plataforma se ha desarrollado con el modelo Opus 5.5 de Claude, siempre bajo la supervisión y la revisión humana del equipo FLU.</p></footer>
