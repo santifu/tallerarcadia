@@ -201,7 +201,35 @@ section{margin-top:64px}
 .cfg-key:disabled{cursor:default;opacity:1}
 .cfg-out{font-weight:700;margin:12px 0 0}
 @media (max-width:760px){.cfg-keys{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media print{.band,.now,.toast{display:none}.wrap{margin:0}}
+.now nav a.go{background:var(--lime);color:#0A0A0A;border-color:#0A0A0A}
+body.presenting{overflow:hidden}
+.toast{z-index:60}
+#deck{position:fixed;inset:0;z-index:50;background:var(--paper);color:var(--ink);display:flex;flex-direction:column;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+#deck[hidden]{display:none}
+.deck-bar,.deck-nav{display:flex;align-items:center;gap:16px;padding:10px clamp(16px,3vw,32px);font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.12em;font-size:12px}
+.deck-bar{border-bottom:1.5px solid var(--line)}
+.deck-nav{border-top:1.5px solid var(--line)}
+.deck-label{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700}
+#deck .deck-bar button,#deck .deck-nav button{font:inherit;font-weight:700;cursor:pointer;background:transparent;color:var(--ink);border:1.5px solid var(--line);padding:6px 12px;letter-spacing:inherit;text-transform:inherit}
+#deck .deck-bar button:hover,#deck .deck-nav button:hover{background:var(--lime);color:#0A0A0A}
+.deck-prog{flex:1;height:8px;border:1.5px solid var(--line)}
+.deck-prog i{display:block;height:100%;width:0;background:var(--lime);transition:width .2s}
+.deck-stage{flex:1;overflow:auto;display:flex;padding:32px clamp(16px,5vw,64px)}
+.deck-inner{margin:auto;width:100%;max-width:1100px}
+@media (min-width:1440px) and (min-height:820px){.deck-inner{zoom:1.25}}
+.deck-inner h3{font-size:clamp(30px,4vw,48px);font-weight:800;letter-spacing:-.03em;margin:0}
+.deck-inner .mhead{margin-bottom:8px}
+.deck-inner .desc{font-size:21px;max-width:62ch}
+.deck-inner .dayhead{border-top:0;padding:0;margin:0}
+.deck-inner .dayhead h2{font-size:clamp(56px,9vw,128px)}
+.deck-inner .dayhead p{font-size:16px}
+.deck-inner .break{font-size:clamp(32px,5vw,64px);font-weight:800;margin:0}
+.deck-inner > .box,.deck-inner > .cfg{margin-top:0}
+.deck-inner .canvas{max-width:none;width:auto}
+.deck-inner .canvas img{max-height:calc(100vh - 260px);width:auto;max-width:100%}
+@media (min-width:1440px) and (min-height:820px){.deck-inner .canvas img{max-height:calc(80vh - 210px)}}
+@media (max-width:760px){.deck-count{display:none}}
+@media print{.band,.now,.toast,#deck{display:none}.wrap{margin:0}}
 </style>
 </head>
 <body>
@@ -222,7 +250,7 @@ section{margin-top:64px}
 
 <div class="now">
   <nav aria-label="Secciones">
-    <a href="#dia1">Día 1</a><a href="#dia2">Día 2</a><a href="#reto">El reto</a><a href="#recursos">Recursos</a><a href="#facilitacion">Facilitación</a>
+    <a href="#dia1">Día 1</a><a href="#dia2">Día 2</a><a href="#reto">El reto</a><a href="#recursos">Recursos</a><a href="#facilitacion">Facilitación</a><a href="#diapo-1" class="go" id="deck-go">Presentar ▶</a>
   </nav>
   <span class="pill" id="nowpill" hidden></span>
 </div>
@@ -628,6 +656,12 @@ section{margin-top:64px}
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<div id="deck" hidden role="region" aria-label="Modo presentación">
+  <div class="deck-bar"><span class="deck-label" id="deck-label"></span><span class="deck-count" id="deck-count"></span><button type="button" id="deck-fs" title="Pantalla completa (F)">⛶</button><button type="button" id="deck-x" title="Salir (Esc)">Salir ✕</button></div>
+  <div class="deck-stage" id="deck-stage"><div class="deck-inner" id="deck-inner"></div></div>
+  <div class="deck-nav"><button type="button" id="deck-prev">← Anterior</button><div class="deck-prog"><i id="deck-prog"></i></div><button type="button" id="deck-next">Siguiente →</button></div>
+</div>
+
 <script>
 (function(){
   var imgs={};document.querySelectorAll("[data-img]").forEach(function(b){imgs[b.dataset.img]=b.querySelector("img").src});
@@ -696,6 +730,94 @@ section{margin-top:64px}
       document.getElementById('cfg-chat').textContent=used.length?('Nuestro mando solo tiene estas teclas: '+list+'. Haz que el juego se juegue solo con ellas.'):'';
     }
     draw();
+  })();
+
+  (function(){
+    var deck=document.getElementById('deck'), inner=document.getElementById('deck-inner'), stage=document.getElementById('deck-stage');
+    var slides=[], cur=0, moved=[];
+    function q(s,r){return (r||document).querySelector(s)}
+    function kids(el){return Array.prototype.slice.call(el.children)}
+    function add(nodes,label){nodes=nodes.filter(Boolean); if(nodes.length) slides.push({nodes:nodes,label:label})}
+    function split(parent,sel,label){
+      var g=[];
+      kids(parent).forEach(function(c){ if(c.matches(sel)&&g.length){add(g,label);g=[]} g.push(c); });
+      add(g,label);
+    }
+    function modLabel(m){return q('.tag',m).textContent+' · '+q('h3',m).textContent}
+    function day(sec){
+      var dh=q('.dayhead',sec);
+      add([dh],q('h2',dh).textContent);
+      kids(sec).forEach(function(c){
+        if(c.matches('article.mod')) split(c,c.querySelectorAll('.box').length>1?'.box,.canvas':'.canvas',modLabel(c));
+        else if(c.matches('.break')) add([c],'Descanso');
+        else if(c.matches('.pairwrap')){
+          var mods=c.querySelectorAll('article.mod');
+          add([q('.sim',c),q('.pair',c)],'M4 + M5 · en simultáneo');
+          var es=q('#esquema',c);
+          if(es) split(es,'.cfg,.refs,.sim,.steps',modLabel(mods[mods.length-1]));
+        }
+      });
+    }
+    add([q('header.frame')],'ArcadIA');
+    add([q('#reto')],'El reto');
+    day(q('#dia1'));
+    day(q('#dia2'));
+    add([q('#recursos .grid3')],'Recursos');
+
+    function restore(){
+      moved.forEach(function(m){ m.ph.parentNode.insertBefore(m.n,m.ph); m.ph.remove(); });
+      moved=[];
+    }
+    function show(i){
+      cur=Math.max(0,Math.min(slides.length-1,i));
+      restore();
+      slides[cur].nodes.forEach(function(n){
+        var ph=document.createComment('diapo');
+        n.parentNode.insertBefore(ph,n); moved.push({n:n,ph:ph}); inner.appendChild(n);
+      });
+      document.getElementById('deck-label').textContent=slides[cur].label;
+      document.getElementById('deck-count').textContent=(cur+1)+' / '+slides.length;
+      document.getElementById('deck-prog').style.width=((cur+1)/slides.length*100)+'%';
+      stage.scrollTop=0;
+      history.replaceState(null,'','#diapo-'+(cur+1));
+    }
+    function start(i){
+      document.body.classList.add('presenting'); deck.hidden=false; show(i);
+    }
+    function stop(){
+      var first=slides[cur].nodes[0];
+      restore(); deck.hidden=true; document.body.classList.remove('presenting');
+      history.replaceState(null,'',location.pathname+location.search);
+      if(document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen();
+      first.scrollIntoView({block:'start'});
+    }
+    function fs(){
+      if(document.fullscreenElement) document.exitFullscreen();
+      else if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+    }
+    document.getElementById('deck-go').addEventListener('click',function(e){
+      e.preventDefault();
+      var now=q('.mod.is-now'), i=0;
+      if(now) slides.some(function(s,k){ if(s.nodes.some(function(n){return now.contains(n)||n.contains(now)})){i=k;return true} });
+      start(i);
+    });
+    document.getElementById('deck-prev').addEventListener('click',function(){show(cur-1)});
+    document.getElementById('deck-next').addEventListener('click',function(){show(cur+1)});
+    document.getElementById('deck-x').addEventListener('click',stop);
+    document.getElementById('deck-fs').addEventListener('click',fs);
+    document.addEventListener('keydown',function(e){
+      if(deck.hidden||document.getElementById('lb').open||e.altKey||e.ctrlKey||e.metaKey) return;
+      if(e.target.closest&&e.target.closest('input,textarea,select')) return;
+      var k=e.key;
+      if(k==='ArrowRight'||k==='PageDown'||(k===' '&&!e.target.closest('button,a'))){e.preventDefault();show(cur+1)}
+      else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();show(cur-1)}
+      else if(k==='Home'){e.preventDefault();show(0)}
+      else if(k==='End'){e.preventDefault();show(slides.length-1)}
+      else if(k==='Escape'){stop()}
+      else if(k==='f'||k==='F'){fs()}
+    });
+    var m=location.hash.match(/^#diapo-(\d+)$/);
+    if(m) start(+m[1]-1);
   })();
 })();
 </script>
