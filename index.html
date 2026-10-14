@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ArcadIA · Guion del taller</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --lime:#D9FF3F; --teal:#0A0A0A; --ink:#0A0A0A; --paper:#F0F0F0; --soft:#fff; --muted:#4a4a4a; --line:#000;
+  --onlime:#000;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --ink:#F2F2F2; --paper:#121410; --soft:#1C2014; --muted:#B5B8AE; --line:#F2F2F2; color-scheme:dark; }
+}
+:root[data-theme="dark"]{ --ink:#F2F2F2; --paper:#121410; --soft:#1C2014; --muted:#B5B8AE; --line:#F2F2F2; color-scheme:dark; }
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.5}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+
+.band{position:fixed;top:0;bottom:0;left:0;width:72px;background:var(--lime);display:flex;justify-content:center;padding-top:calc(env(safe-area-inset-top,0px) + 28px);z-index:5}
+.band span{writing-mode:vertical-rl;font-weight:900;font-size:40px;letter-spacing:-.02em;color:var(--onlime)}
+.wrap{margin-left:72px;padding:28px clamp(16px,4vw,48px) 80px;max-width:1100px}
+
+.frame{border:4px solid var(--lime);padding:18px 22px}
+h1{font-weight:900;font-size:clamp(34px,5.4vw,64px);line-height:1;letter-spacing:-.03em;margin:0}
+.meta{margin:12px 0 0;color:var(--muted);font-size:16px}
+
+.arc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:18px 0 0}
+.arc div{border:2px dashed var(--teal);padding:12px 14px}
+.arc b{display:block;font-weight:800;font-size:20px}
+.arc small{color:var(--muted);font-size:14px}
+
+.now{position:sticky;top:env(safe-area-inset-top,0px);z-index:4;background:var(--paper);border-bottom:3px solid var(--line);margin:24px 0 0;padding:10px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.now nav{display:flex;gap:6px;flex-wrap:wrap}
+.now nav a{text-decoration:none;font-weight:700;font-size:14px;border:2px solid var(--line);padding:4px 10px}
+.now nav a:hover{background:var(--lime);color:var(--onlime);border-color:var(--onlime)}
+.pill{font-weight:800;font-size:14px;background:var(--lime);color:var(--onlime);padding:6px 12px;margin-left:auto}
+.pill[hidden]{display:none}
+
+section{margin-top:44px}
+h2{font-weight:900;font-size:clamp(28px,3.6vw,40px);letter-spacing:-.02em;margin:0;line-height:1.05}
+.dayhead{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:4px solid var(--lime);padding-bottom:10px;margin-bottom:18px}
+.dayhead p{margin:0;color:var(--muted)}
+
+.mod{border:3px dashed var(--teal);padding:16px 18px;margin-bottom:14px;position:relative}
+.mod.is-now{border-style:solid;border-color:var(--lime);box-shadow:inset 0 0 0 3px var(--lime)}
+.mod.is-now::after{content:"Ahora";position:absolute;top:-14px;right:14px;background:var(--lime);color:var(--onlime);font-weight:800;font-size:13px;padding:2px 10px}
+.mhead{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.tag{font-weight:900;font-size:15px;background:var(--line);color:var(--paper);padding:2px 8px}
+.mod h3{margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em;flex:1;min-width:200px}
+.time{font-weight:700;font-size:15px}
+.desc{margin:8px 0 0;max-width:72ch}
+.hint{font-size:13px;color:var(--muted);margin:6px 0 0}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.btn{display:inline-flex;align-items:center;gap:6px;font:inherit;font-weight:800;font-size:15px;text-decoration:none;background:var(--lime);color:var(--onlime);border:2px solid var(--onlime);padding:7px 14px;cursor:pointer}
+.btn:hover{background:var(--onlime);color:var(--lime)}
+.btn.alt{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.alt:hover{background:var(--line);color:var(--paper)}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.pair .mod{margin-bottom:0}
+.pairwrap{margin-bottom:14px}
+.sim{font-size:13px;font-weight:700;color:var(--muted);margin:0 0 6px}
+.break{text-align:center;color:var(--muted);font-weight:700;margin:6px 0 20px;font-size:15px}
+.games{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.games div{border:2px solid var(--line);padding:10px 12px}
+.games b{display:block;font-size:18px;font-weight:800;margin-bottom:4px}
+.games a{display:block;font-weight:700;font-size:15px;padding:4px 0}
+.games a:hover{background:var(--lime);color:var(--onlime)}
+.wiring{background:#fff;border:2px solid var(--line);margin-top:12px;overflow-x:auto}
+.wiring svg{display:block;width:100%;min-width:680px;height:auto}
+.refs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.refs figure{margin:0;border:2px solid var(--line)}
+.refs img{display:block;width:100%;height:auto}
+.refs figcaption{font-size:13px;padding:6px 8px;color:var(--muted)}
+.foot{margin-top:56px;border-top:4px solid var(--lime);padding-top:14px}
+.foot p{margin:0;font-size:15px;color:var(--muted);max-width:72ch}
+.steps{margin:8px 0 0;padding-left:22px;max-width:76ch}
+.steps li{margin:4px 0}
+
+.box{background:var(--soft);padding:12px 14px;margin-top:12px}
+.box h4{margin:0 0 6px;font-size:15px;font-weight:800}
+.layers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}
+.layers div{border:2px solid var(--line);padding:8px 10px;font-size:14px}
+.layers b{display:block;font-size:15px}
+pre.prompt{white-space:pre-wrap;margin:8px 0 0;font-size:14px;line-height:1.55;border-left:4px solid var(--lime);padding:4px 0 4px 12px}
+.rounds{margin:6px 0 0;padding-left:20px}
+.rounds li{margin:3px 0}
+.keys{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.keys kbd{font-family:"IBM Plex Mono",monospace;font-size:14px;border:2px solid var(--line);border-bottom-width:4px;padding:2px 8px;min-width:30px;text-align:center}
+.mural{font-weight:900;font-size:clamp(26px,4vw,44px);letter-spacing:-.02em;line-height:1.05;margin:10px 0 0}
+
+.canvas{margin-top:12px;display:block;width:100%;max-width:560px;border:2px solid var(--line);cursor:zoom-in;padding:0;background:#fff}
+.canvas img{display:block;width:100%;height:auto}
+
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{border:3px solid var(--lime);padding:14px 16px}
+.card h3{margin:0 0 4px;font-size:20px;font-weight:800}
+.card p{margin:0 0 10px;font-size:15px;color:var(--muted)}
+.team{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.team div{border-top:4px solid var(--line);padding-top:8px}
+.team b{display:block;font-size:18px}
+.team small{color:var(--muted);font-size:14px}
+
+dialog{border:4px solid var(--lime);padding:0;max-width:96vw;max-height:92vh;background:#fff}
+dialog::backdrop{background:rgba(0,0,0,.75)}
+dialog img{display:block;max-width:94vw;max-height:84vh;width:auto;height:auto}
+dialog form{display:flex;justify-content:flex-end;background:var(--lime)}
+dialog button{font:inherit;font-weight:800;border:0;background:var(--lime);color:#000;padding:8px 14px;cursor:pointer}
+
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);transform:translateX(-50%);background:var(--lime);color:#000;font-weight:800;padding:8px 16px;border:2px solid #000;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+
+@media (max-width:760px){
+  .band{position:static;width:auto;height:auto;padding:calc(env(safe-area-inset-top,0px) + 8px) 16px 8px;justify-content:flex-start}
+  .band span{writing-mode:horizontal-tb;font-size:30px}
+  .wrap{margin-left:0;padding-top:18px}
+  .arc,.layers{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pair,.grid3,.team,.games,.refs{grid-template-columns:1fr}
+  .pill{margin-left:0}
+}
+
+.mono,.kicker,.tag,.now nav a,.pill,.hint,.foot p,.sim,.break,.time,.box h4,.dayhead p,.band small{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace}
+.band{width:100px;flex-direction:column;align-items:center;justify-content:space-between;padding-bottom:24px;border-right:1.5px solid #0A0A0A}
+.band span{font-size:46px;font-weight:800;letter-spacing:-.04em}
+.band small{writing-mode:vertical-rl;font-size:13px;color:#0A0A0A}
+.wrap{margin-left:100px;padding-top:56px}
+.frame{border:0;padding:0}
+.kicker{font-size:14px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 20px}
+h1{font-weight:800;letter-spacing:-.045em;font-size:clamp(44px,7vw,92px);line-height:.95;max-width:14ch}
+.meta{font-size:21px;color:var(--ink);max-width:56ch;margin-top:24px;line-height:1.45}
+.arc{margin-top:32px;gap:14px}
+.arc div{border:1.5px solid var(--line);padding:16px 18px}
+.arc b{font-size:22px;letter-spacing:-.02em}
+h2{font-weight:800;letter-spacing:-.04em;font-size:clamp(36px,5vw,64px);line-height:1}
+section{margin-top:64px}
+.dayhead{border-bottom:0;border-top:2px solid var(--line);padding:22px 0 0;margin-bottom:24px}
+.dayhead p{text-transform:uppercase;letter-spacing:.12em;font-size:13px;color:var(--ink)}
+.mod{border:1.5px solid var(--line);padding:22px 24px;margin-bottom:16px}
+.mod.is-now{background:var(--lime);border:1.5px solid #0A0A0A;box-shadow:none;color:#0A0A0A}
+.mod.is-now .desc,.mod.is-now .hint{color:#0A0A0A}
+.mod.is-now::after{content:"AHORA";background:#0A0A0A;color:var(--lime);font-family:"JetBrains Mono",monospace;letter-spacing:.12em;font-size:12px;padding:4px 10px;top:-13px}
+.tag{background:transparent;color:inherit;border:1.5px solid currentColor;font-weight:700;letter-spacing:.12em;padding:3px 9px;font-size:13px}
+.mod h3{font-weight:800;letter-spacing:-.025em;font-size:28px}
+.time{font-size:14px;font-weight:600;letter-spacing:.06em}
+.desc{font-size:18px}
+.btn{background:#0A0A0A;color:#fff;border:1.5px solid #0A0A0A;padding:11px 20px;font-size:16px}
+.btn:hover{background:var(--lime);color:#0A0A0A;border-color:#0A0A0A}
+.btn.alt{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.alt:hover{background:var(--lime);color:#0A0A0A}
+.box{background:transparent;border:1.5px solid var(--line);padding:16px 18px}
+.box h4{text-transform:uppercase;letter-spacing:.12em;font-size:13px;font-weight:700;margin-bottom:10px}
+.layers div,.games div,.keys kbd{border-width:1.5px}
+.games a:hover{background:var(--lime);color:#0A0A0A}
+.card{border:1.5px solid var(--line);padding:18px 20px}
+.card h3{font-size:22px;letter-spacing:-.02em}
+.now{border-bottom:1.5px solid var(--line);margin-top:40px}
+.now nav a{text-transform:uppercase;letter-spacing:.12em;font-size:12px;border-width:1.5px;padding:6px 12px}
+.pill{text-transform:uppercase;letter-spacing:.08em;font-size:12px;padding:7px 12px}
+.sim,.break{text-transform:uppercase;letter-spacing:.12em;font-size:12px}
+.mural{display:inline;background:var(--lime);color:#0A0A0A;padding:0 8px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.team div{border-top:2px solid var(--line)}
+.foot{border-top:1.5px solid var(--line);margin-top:72px;padding-top:24px}
+.foot p{font-size:13px;line-height:1.75;max-width:110ch}
+.wiring,.refs figure,.canvas{border-width:1.5px}
+@media (max-width:760px){
+  .band{width:auto;flex-direction:row;border-right:0;border-bottom:1.5px solid #0A0A0A;padding-bottom:8px}
+  .band span{font-size:30px}
+  .band small{display:none}
+  .wrap{margin-left:0;padding-top:28px}
+}
+@media print{.band,.now,.toast{display:none}.wrap{margin:0}}
+</style>
+</head>
+<body>
+<div class="band" aria-hidden="true"><span>ArcadIA</span><small>redesteam-madrid</small></div>
+<main class="wrap">
+
+<header class="frame">
+  <p class="kicker">Guion del taller · Madrid · 14–15 oct 2026</p>
+  <h1>De jugar con la IA a construir la máquina</h1>
+  <p class="meta">Taller RedeSTEAM. Cada equipo crea un videojuego de temática STEAM con IA y construye el mando para jugarlo.</p>
+  <div class="arc" role="list">
+    <div role="listitem"><b>Entender</b><small>¿Cómo ve y cómo piensa una IA?</small></div>
+    <div role="listitem"><b>Crear</b><small>¿Puedo hacer que genere algo que funcione?</small></div>
+    <div role="listitem"><b>Construir</b><small>¿Cómo lo llevo del navegador al mundo físico?</small></div>
+    <div role="listitem"><b>Limitar</b><small>¿Dónde no debería decidir por mí?</small></div>
+  </div>
+</header>
+
+<div class="now">
+  <nav aria-label="Secciones">
+    <a href="#dia1">Día 1</a><a href="#dia2">Día 2</a><a href="#reto">El reto</a><a href="#recursos">Recursos</a>
+  </nav>
+  <span class="pill" id="nowpill" hidden></span>
+</div>
+
+<section id="reto">
+  <div class="dayhead"><h2>El reto</h2></div>
+  <div class="grid3">
+    <div class="card"><h3>El juego vive en el navegador</h3><p>Una web en HTML y JavaScript generada con IA. Se abre con una URL, sin instalar nada.</p></div>
+    <div class="card"><h3>El mando es un teclado</h3><p>Con Makey Makey, cada botón envía una tecla. El juego solo tiene que leer teclas.</p></div>
+    <div class="card"><h3>Dos subgrupos en paralelo</h3><p>Una parte hace vibe coding del juego, la otra construye el mando. Se juntan en la integración.</p></div>
+  </div>
+  <div class="box"><h4>Entrega mínima viable</h4>Si no da tiempo a una máquina completa, basta con un mando funcional sobre cartón que controle el juego.</div>
+</section>
+
+<section id="dia1">
+  <div class="dayhead"><h2>Día 1 · Entender y crear</h2><p>Miércoles 14 · 14:30 a 19:15</p></div>
+
+  <article class="mod" data-d="2026-10-14" data-s="14:30" data-e="15:00">
+    <div class="mhead"><span class="tag">M0</span><h3>Bienvenida y autoevaluación</h3><span class="time">14:30–15:00</span></div>
+    <p class="desc">Presentamos el taller, el equipo facilitador y el reto final: crear un videojuego con IA y construir la máquina para jugarlo. Dinámica para conocernos y autoevaluación inicial de la percepción STEAM.</p>
+    <p class="hint mono">Radar del 1 al 6. No se puede repetir la misma puntuación en dos habilidades.</p>
+    <button class="canvas" data-img="auto" aria-label="Ampliar canvas de autoevaluación"><img src="assets/canvas/autoevaluacion.jpg" alt="Canvas de autoevaluación: radar de seis ejes (diseño, prototipado, comunicación, gestión de equipo, electrónica, inteligencia artificial)"></button>
+    <div class="btns"><a class="btn alt" href="assets/canvas/autoevaluacion.pdf" download>Descargar PDF</a></div>
+  </article>
+
+  <article class="mod" data-d="2026-10-14" data-s="15:00" data-e="15:30">
+    <div class="mhead"><span class="tag">M1</span><h3>Warm-up: Animal Scanner</h3><span class="time">15:00–15:30</span></div>
+    <p class="desc">Primer acercamiento a clasificación, modelo, dataset y sesgo. Las ideas se introducen de forma intuitiva, sin diapositivas.</p>
+    <div class="btns"><a class="btn" href="https://ldirml.lovable.app/" target="_blank" rel="noopener">Abrir Animal Scanner ↗</a></div>
+  </article>
+
+  <article class="mod" data-d="2026-10-14" data-s="15:30" data-e="16:30">
+    <div class="mhead"><span class="tag">M2</span><h3>Presentación del reto y teoría de juegos</h3><span class="time">15:30–16:30</span></div>
+    <p class="desc">Jugamos varias demos breves y desmontamos qué las hace funcionar: objetivo, personaje, reglas, obstáculos, puntuación y controles. El resultado es una clasificación colectiva que sirve de plantilla para diseñar el juego propio.</p>
+    <div class="games">
+      <div><b>Plataformas</b><a href="https://poki.com/es/g/we-skate" target="_blank" rel="noopener">We Skate ↗</a><a href="https://poki.com/es/g/poor-bunny" target="_blank" rel="noopener">Poor Bunny ↗</a></div>
+      <div><b>Corredor</b><a href="https://poki.com/es/g/dinosaur-game" target="_blank" rel="noopener">Dinosaur Game ↗</a><a href="https://poki.com/es/g/snow-yeet" target="_blank" rel="noopener">Snow Yeet ↗</a></div>
+      <div><b>Disparos</b><a href="https://retro-games.org/es/arcade-games/space-invaders" target="_blank" rel="noopener">Space Invaders ↗</a><a href="https://es.y8.com/games/space_arcade_the_game" target="_blank" rel="noopener">Space Arcade ↗</a></div>
+    </div>
+    <button class="canvas" data-img="tipos" aria-label="Ampliar canvas de tipos y análisis forense"><img src="assets/canvas/tipos-analisis-forense.jpg" alt="Canvas: tipos de videojuegos (plataformas, disparos, corredor), análisis forense de un videojuego y hazlo educativo"></button>
+    <div class="btns"><a class="btn alt" href="assets/canvas/tipos-analisis-forense.pdf" download>Descargar PDF</a></div>
+  </article>
+
+  <p class="break">Descanso · 16:30–16:45</p>
+
+  <article class="mod" data-d="2026-10-14" data-s="16:45" data-e="17:45">
+    <div class="mhead"><span class="tag">M3</span><h3>Decisiones de diseño para el prompt</h3><span class="time">16:45–17:45</span></div>
+    <p class="desc">Cómo funciona la IA generativa: reconocer frente a generar, qué es un prompt y por qué se equivoca. Después, en equipos y en papel, cada grupo decide tipo de juego, personaje, mecánica y storyboard con post-its, y lo traduce a un primer prompt por capas.</p>
+    <div class="layers">
+      <div><b>Rol</b>Quién es la IA</div>
+      <div><b>Contexto</b>Tema STEAM, público, estilo</div>
+      <div><b>Tarea</b>Qué juego hay que crear</div>
+      <div><b>Formato</b>Un solo HTML, teclas, pantallas</div>
+    </div>
+    <div class="box">
+      <h4>Prompt de la pantalla de inicio</h4>
+      <pre class="prompt mono" id="p-render">Genera una imagen 2D estilo arcade retro, como las pantallas de inicio de videojuegos clásicos, donde aparezca mi personaje principal [DESCRIPCIÓN DEL PERSONAJE], en un fondo que represente su mundo [DESCRIPCIÓN DEL FONDO], haciendo [ACCIÓN REPRESENTATIVA DEL JUEGO] con el logo de nuestro equipo [NOMBRE DEL EQUIPO] a modo logo de empresa de videojuegos en la parte superior y un botón grande de PLAY en el centro abajo de la pantalla.</pre>
+      <div class="btns"><button class="btn alt" data-copy="p-render">Copiar prompt</button></div>
+    </div>
+    <button class="canvas" data-img="mapeo" aria-label="Ampliar canvas de mapeo del juego"><img src="assets/canvas/mapeo-del-juego.jpg" alt="Canvas de mapeo del juego: decisiones para el prompt, storyboard y render de pantalla de inicio"></button>
+    <div class="btns"><a class="btn alt" href="assets/canvas/mapeo-del-juego.pdf" download>Descargar PDF</a></div>
+  </article>
+
+  <div class="pairwrap">
+    <p class="sim">17:45–18:45 · en simultáneo, el equipo se divide</p>
+    <div class="pair">
+      <article class="mod" data-d="2026-10-14" data-s="17:45" data-e="18:45">
+        <div class="mhead"><span class="tag">M4</span><h3>Vibe coding: primera versión del juego</h3></div>
+        <p class="desc">Probar, detectar fallos, reformular y volver a generar hasta tener una versión jugable en el navegador.</p>
+        <p class="hint mono">Entrad con el usuario y la contraseña de vuestra tarjeta.</p>
+        <div class="btns"><a class="btn" href="https://www.arcadiabyflu.com/" target="_blank" rel="noopener">Abrir ArcadIA ↗</a></div>
+      </article>
+      <article class="mod" data-d="2026-10-14" data-s="17:45" data-e="18:45">
+        <div class="mhead"><span class="tag">M5</span><h3>Construcción del mando / máquina</h3></div>
+        <p class="desc">Diseñar y fabricar la interfaz física (cartón, botones arcade, joystick) y conectarla con Makey Makey para que funcione como un teclado.</p>
+        <p class="hint mono">Joystick → flechas. Botón 1 → espacio. Botón 2 → clic.</p>
+        <div class="btns"><a class="btn alt" href="#esquema">Ver esquema de conexión</a></div>
+      </article>
+    </div>
+    <div class="box" id="esquema">
+      <h4>Esquema de conexión del mando</h4>
+      <div class="refs">
+        <figure><img src="assets/img/joystick-boton.jpg" alt="Joystick arcade con cuatro microinterruptores y un botón arcade rojo"><figcaption>Joystick con 4 microinterruptores y botón arcade. Cada interruptor tiene 3 patas.</figcaption></figure>
+        <figure><img src="assets/img/caja-carton.jpg" alt="Caja de cartón plana delante de un portátil"><figcaption>Caja de cartón cortada con láser y plegada, delante del portátil.</figcaption></figure>
+      </div>
+      <div class="wiring"><svg viewBox="0 0 900 320" role="img" aria-labelledby="bt bd" font-family="Archivo, system-ui, sans-serif">
+<title id="bt">Distribución en la caja, vista desde arriba</title>
+<desc id="bd">El joystick va a la izquierda de la tapa y los dos botones a la derecha. La Makey Makey va dentro de la caja, pegada al fondo, con el USB saliendo por la parte de atrás hacia el portátil.</desc>
+<text x="30" y="28" font-size="16" font-weight="800" fill="#000">Distribución en la caja · vista desde arriba</text>
+<rect x="320" y="44" width="260" height="34" fill="#333"/>
+<text x="450" y="66" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Portátil</text>
+<rect x="150" y="100" width="600" height="190" fill="#E8C99A" stroke="#8A6A3A" stroke-width="3"/>
+<rect x="385" y="118" width="130" height="80" fill="none" stroke="#E04A3F" stroke-width="3" stroke-dasharray="8 6"/>
+<text x="450" y="152" font-size="13" font-weight="800" fill="#000" text-anchor="middle">Makey Makey</text>
+<text x="450" y="170" font-size="12" fill="#000" text-anchor="middle">dentro, pegada</text>
+<text x="450" y="185" font-size="12" fill="#000" text-anchor="middle">al fondo</text>
+<path d="M450,118 V78" stroke="#333" stroke-width="5" fill="none"/>
+<circle cx="450" cy="100" r="7" fill="#fff" stroke="#000" stroke-width="2"/>
+<text x="462" y="94" font-size="12" font-weight="700" fill="#000">agujero USB</text>
+<circle cx="270" cy="195" r="46" fill="#222"/>
+<circle cx="270" cy="195" r="20" fill="#2F6FDB"/>
+<text x="270" y="262" font-size="13" font-weight="800" fill="#000" text-anchor="middle">Joystick · flechas</text>
+<circle cx="610" cy="180" r="28" fill="#E04A3F" stroke="#000" stroke-width="2"/>
+<text x="610" y="185" font-size="16" font-weight="800" fill="#fff" text-anchor="middle">1</text>
+<text x="610" y="226" font-size="13" font-weight="800" fill="#000" text-anchor="middle">Espacio</text>
+<circle cx="690" cy="180" r="28" fill="#E04A3F" stroke="#000" stroke-width="2"/>
+<text x="690" y="185" font-size="16" font-weight="800" fill="#fff" text-anchor="middle">2</text>
+<text x="690" y="226" font-size="13" font-weight="800" fill="#000" text-anchor="middle">Clic</text>
+<path d="M425,290 A25,18 0 0 1 475,290 Z" fill="#B8935B"/>
+<text x="450" y="312" font-size="12" fill="#000" text-anchor="middle">muesca para abrir</text>
+</svg></div>
+      <div class="wiring"><svg viewBox="0 0 1000 620" role="img" aria-labelledby="wt wd" font-family="Archivo, system-ui, sans-serif">
+<title id="wt">Conexión del mando con Makey Makey</title>
+<desc id="wd">La pata NO de cada microinterruptor va con una pinza de color a su tecla: joystick a las cuatro flechas, botón 1 a SPACE y botón 2 a CLICK. Las patas COM se unen a una tira de cinta de cobre alrededor del joystick, y de ahí un cable negro va a EARTH.</desc>
+<rect width="1000" height="620" fill="#fff"/>
+<text x="40" y="478" font-size="20" font-weight="800" fill="#111">Conexión del mando</text>
+<text x="40" y="502" font-size="13" fill="#333">Pinza de color: NO de cada interruptor a su tecla.</text>
+<text x="40" y="520" font-size="13" fill="#333">Cinta de cobre y cable negro: todos los COM a EARTH.</text>
+<text x="40" y="538" font-size="13" fill="#333">Joystick visto desde abajo.</text>
+<rect x="40" y="20" width="130" height="78" rx="6" fill="#444" stroke="#111" stroke-width="3"/><rect x="50" y="30" width="110" height="58" fill="#9fd3ff"/><rect x="28" y="96" width="154" height="10" rx="3" fill="#666" stroke="#111" stroke-width="2"/>
+<path d="M250,122 C250,70 200,80 182,100" fill="none" stroke="#111" stroke-width="10" stroke-linecap="round"/><path d="M250,122 C250,70 200,80 182,100" fill="none" stroke="#eee" stroke-width="6" stroke-linecap="round"/>
+<rect x="40" y="120" width="420" height="270" rx="12" fill="#E03A3A" stroke="#111" stroke-width="4"/>
+<rect x="52" y="132" width="396" height="246" rx="6" fill="#FAFAFA"/>
+<text x="40" y="420" font-size="15" font-weight="800" fill="#E03A3A">Makey Makey</text>
+<rect x="128" y="155" width="44" height="160" fill="#E03A3A" stroke="#111" stroke-width="3"/><rect x="70" y="213" width="160" height="44" fill="#E03A3A" stroke="#111" stroke-width="3"/><rect x="129.5" y="214.5" width="41" height="41" fill="#E03A3A"/>
+<circle cx="150" cy="177" r="13" fill="#C9C9C9" stroke="#111" stroke-width="2"/>
+<circle cx="150" cy="293" r="13" fill="#C9C9C9" stroke="#111" stroke-width="2"/>
+<circle cx="92" cy="235" r="13" fill="#C9C9C9" stroke="#111" stroke-width="2"/>
+<circle cx="208" cy="235" r="13" fill="#C9C9C9" stroke="#111" stroke-width="2"/>
+<circle cx="310" cy="225" r="36" fill="#E03A3A" stroke="#111" stroke-width="3"/><circle cx="310" cy="225" r="22" fill="#C9C9C9" stroke="#111" stroke-width="2"/>
+<circle cx="400" cy="225" r="36" fill="#E03A3A" stroke="#111" stroke-width="3"/><circle cx="400" cy="225" r="22" fill="#C9C9C9" stroke="#111" stroke-width="2"/>
+<text x="310" y="284" font-size="14" font-weight="800" fill="#E03A3A" text-anchor="middle">SPACE</text><text x="400" y="284" font-size="14" font-weight="800" fill="#E03A3A" text-anchor="middle">CLICK</text>
+<rect x="60" y="340" width="380" height="32" fill="#C9C9C9" stroke="#111" stroke-width="3"/><rect x="220" y="326" width="70" height="16" fill="#E03A3A" stroke="#111" stroke-width="2"/><text x="255" y="338" font-size="11" font-weight="800" fill="#fff" text-anchor="middle">EARTH</text>
+<rect x="640" y="140" width="200" height="200" rx="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="740" cy="240" r="52" fill="#3C3C3C" stroke="#111" stroke-width="2"/><circle cx="740" cy="240" r="14" fill="#C9C9C9" stroke="#111" stroke-width="2"/>
+<g fill="#9AA0A6" stroke="#111" stroke-width="2"><rect x="705" y="150" width="70" height="30" rx="3"/><rect x="705" y="300" width="70" height="30" rx="3"/><rect x="650" y="205" width="30" height="70" rx="3"/><rect x="800" y="205" width="30" height="70" rx="3"/></g>
+<g fill="#E8E8E8" stroke="#111" stroke-width="2"><rect x="717" y="134" width="10" height="16"/><rect x="753" y="134" width="10" height="16"/><rect x="717" y="330" width="10" height="16"/><rect x="753" y="330" width="10" height="16"/><rect x="634" y="217" width="16" height="10"/><rect x="634" y="253" width="16" height="10"/><rect x="830" y="217" width="16" height="10"/><rect x="830" y="253" width="16" height="10"/></g>
+<rect x="614" y="114" width="252" height="252" rx="22" fill="none" stroke="#111" stroke-width="12"/><rect x="614" y="114" width="252" height="252" rx="22" fill="none" stroke="#C87533" stroke-width="7"/>
+<text x="880" y="300" font-size="12" font-weight="700" fill="#8A4F1C">cinta de</text><text x="880" y="315" font-size="12" font-weight="700" fill="#8A4F1C">cobre</text>
+<rect x="655" y="440" width="50" height="60" rx="6" fill="#E03A3A" stroke="#111" stroke-width="3"/><ellipse cx="680" cy="440" rx="32" ry="9" fill="#F06060" stroke="#111" stroke-width="3"/><rect x="650" y="500" width="60" height="26" rx="3" fill="#9AA0A6" stroke="#111" stroke-width="2"/><rect x="657" y="526" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><rect x="693" y="526" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><text x="680" y="572" font-size="13" font-weight="800" fill="#111" text-anchor="middle">1 · SPACE</text>
+<rect x="795" y="440" width="50" height="60" rx="6" fill="#E03A3A" stroke="#111" stroke-width="3"/><ellipse cx="820" cy="440" rx="32" ry="9" fill="#F06060" stroke="#111" stroke-width="3"/><rect x="790" y="500" width="60" height="26" rx="3" fill="#9AA0A6" stroke="#111" stroke-width="2"/><rect x="797" y="526" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><rect x="833" y="526" width="10" height="14" fill="#E8E8E8" stroke="#111" stroke-width="2"/><text x="820" y="572" font-size="13" font-weight="800" fill="#111" text-anchor="middle">2 · CLICK</text>
+<path d="M758,136 L758,114" fill="none" stroke="#111" stroke-width="11" stroke-linecap="round"/><path d="M758,136 L758,114" fill="none" stroke="#2B2B2B" stroke-width="6" stroke-linecap="round"/>
+<path d="M846,258 L866,258" fill="none" stroke="#111" stroke-width="11" stroke-linecap="round"/><path d="M846,258 L866,258" fill="none" stroke="#2B2B2B" stroke-width="6" stroke-linecap="round"/>
+<path d="M758,346 L758,366" fill="none" stroke="#111" stroke-width="11" stroke-linecap="round"/><path d="M758,346 L758,366" fill="none" stroke="#2B2B2B" stroke-width="6" stroke-linecap="round"/>
+<path d="M634,258 L614,258" fill="none" stroke="#111" stroke-width="11" stroke-linecap="round"/><path d="M634,258 L614,258" fill="none" stroke="#2B2B2B" stroke-width="6" stroke-linecap="round"/>
+<path d="M698,540 C600,540 610,400 650,366" fill="none" stroke="#111" stroke-width="11" stroke-linecap="round"/><path d="M698,540 C600,540 610,400 650,366" fill="none" stroke="#2B2B2B" stroke-width="6" stroke-linecap="round"/>
+<path d="M838,540 C930,540 920,400 840,366" fill="none" stroke="#111" stroke-width="11" stroke-linecap="round"/><path d="M838,540 C930,540 920,400 840,366" fill="none" stroke="#2B2B2B" stroke-width="6" stroke-linecap="round"/>
+<path d="M614,330 C540,420 460,400 420,356" fill="none" stroke="#111" stroke-width="11" stroke-linecap="round"/><path d="M614,330 C540,420 460,400 420,356" fill="none" stroke="#2B2B2B" stroke-width="6" stroke-linecap="round"/>
+<path d="M722,136 C600,30 250,60 150,177" fill="none" stroke="#111" stroke-width="12" stroke-linecap="round"/><path d="M722,136 C600,30 250,60 150,177" fill="none" stroke="#3B6FE0" stroke-width="7" stroke-linecap="round"/>
+<path d="M846,222 C960,90 520,70 208,235" fill="none" stroke="#111" stroke-width="12" stroke-linecap="round"/><path d="M846,222 C960,90 520,70 208,235" fill="none" stroke="#F08A24" stroke-width="7" stroke-linecap="round"/>
+<path d="M634,222 C540,140 80,110 92,235" fill="none" stroke="#111" stroke-width="12" stroke-linecap="round"/><path d="M634,222 C540,140 80,110 92,235" fill="none" stroke="#8A4FD0" stroke-width="7" stroke-linecap="round"/>
+<path d="M722,346 C640,420 260,420 150,293" fill="none" stroke="#111" stroke-width="12" stroke-linecap="round"/><path d="M722,346 C640,420 260,420 150,293" fill="none" stroke="#2EA84A" stroke-width="7" stroke-linecap="round"/>
+<path d="M662,540 C560,560 380,330 310,225" fill="none" stroke="#111" stroke-width="12" stroke-linecap="round"/><path d="M662,540 C560,560 380,330 310,225" fill="none" stroke="#F5C518" stroke-width="7" stroke-linecap="round"/>
+<path d="M802,540 C780,470 440,340 400,225" fill="none" stroke="#111" stroke-width="12" stroke-linecap="round"/><path d="M802,540 C780,470 440,340 400,225" fill="none" stroke="#18B3B0" stroke-width="7" stroke-linecap="round"/>
+<circle cx="722" cy="136" r="10" fill="#3B6FE0" stroke="#111" stroke-width="3"/><circle cx="722" cy="136" r="3" fill="#111"/><circle cx="150" cy="177" r="10" fill="#3B6FE0" stroke="#111" stroke-width="3"/><circle cx="150" cy="177" r="3" fill="#111"/>
+<circle cx="846" cy="222" r="10" fill="#F08A24" stroke="#111" stroke-width="3"/><circle cx="846" cy="222" r="3" fill="#111"/><circle cx="208" cy="235" r="10" fill="#F08A24" stroke="#111" stroke-width="3"/><circle cx="208" cy="235" r="3" fill="#111"/>
+<circle cx="634" cy="222" r="10" fill="#8A4FD0" stroke="#111" stroke-width="3"/><circle cx="634" cy="222" r="3" fill="#111"/><circle cx="92" cy="235" r="10" fill="#8A4FD0" stroke="#111" stroke-width="3"/><circle cx="92" cy="235" r="3" fill="#111"/>
+<circle cx="722" cy="346" r="10" fill="#2EA84A" stroke="#111" stroke-width="3"/><circle cx="722" cy="346" r="3" fill="#111"/><circle cx="150" cy="293" r="10" fill="#2EA84A" stroke="#111" stroke-width="3"/><circle cx="150" cy="293" r="3" fill="#111"/>
+<circle cx="662" cy="540" r="10" fill="#F5C518" stroke="#111" stroke-width="3"/><circle cx="662" cy="540" r="3" fill="#111"/><circle cx="310" cy="225" r="10" fill="#F5C518" stroke="#111" stroke-width="3"/><circle cx="310" cy="225" r="3" fill="#111"/>
+<circle cx="802" cy="540" r="10" fill="#18B3B0" stroke="#111" stroke-width="3"/><circle cx="802" cy="540" r="3" fill="#111"/><circle cx="400" cy="225" r="10" fill="#18B3B0" stroke="#111" stroke-width="3"/><circle cx="400" cy="225" r="3" fill="#111"/>
+<circle cx="758" cy="136" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="758" cy="136" r="3" fill="#111"/>
+<circle cx="846" cy="258" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="846" cy="258" r="3" fill="#111"/>
+<circle cx="758" cy="346" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="758" cy="346" r="3" fill="#111"/>
+<circle cx="634" cy="258" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="634" cy="258" r="3" fill="#111"/>
+<circle cx="698" cy="540" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="698" cy="540" r="3" fill="#111"/>
+<circle cx="838" cy="540" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="838" cy="540" r="3" fill="#111"/>
+<circle cx="420" cy="356" r="10" fill="#2B2B2B" stroke="#111" stroke-width="3"/><circle cx="420" cy="356" r="3" fill="#111"/>
+</svg></div>
+      <ol class="steps">
+        <li>Monta el joystick y los dos botones en la tapa: joystick a la izquierda, botones a la derecha.</li>
+        <li>Pega la Makey Makey en el fondo de la caja y saca el USB por un agujero en el lado que mira al portátil.</li>
+        <li>Cada microinterruptor tiene 3 patas con letras impresas: COM, NO y NC. Usa solo COM y NO. NC se queda libre.</li>
+        <li>NO de cada interruptor a su tecla con una pinza: los 4 del joystick a las flechas, botón 1 a espacio, botón 2 a clic.</li>
+        <li>Une todas las patas COM con un cable o una tira de cinta de cobre y llévalas a EARTH con una pinza.</li>
+        <li>Antes de cerrar la caja, conecta el USB y prueba cada botón en un editor de texto.</li>
+        <li>Si arriba y abajo (o izquierda y derecha) salen al revés, intercambia esas dos pinzas: la palanca pulsa el interruptor del lado contrario.</li>
+      </ol>
+      <p class="hint mono">Material por mando: 7 pinzas de cocodrilo (6 señales + 1 tierra) y cable o cinta de cobre para unir los COM. Las pinzas se agarran directamente a las patas del interruptor.</p>
+    </div>
+  </div>
+
+  <article class="mod" data-d="2026-10-14" data-s="19:00" data-e="19:15">
+    <div class="mhead"><span class="tag">M6</span><h3>Cierre y vicio</h3><span class="time">19:00–19:15</span></div>
+    <p class="desc">Probamos las versiones generadas cruzándonos entre equipos para recibir feedback. Cierre reflexivo.</p>
+  </article>
+</section>
+
+<section id="dia2">
+  <div class="dayhead"><h2>Día 2 · Construir y limitar</h2><p>Jueves 15 · 9:15 a 12:20</p></div>
+
+  <article class="mod" data-d="2026-10-15" data-s="09:15" data-e="09:30">
+    <div class="mhead"><span class="tag">M7</span><h3>Check matinal y elección de reto</h3><span class="time">9:15–9:30</span></div>
+    <p class="desc">Repaso de lo aprendido y de la propuesta de juego de cada equipo. Cada grupo acuerda qué teclas usará el mando y se reparte entre vibe coding y construcción.</p>
+    <div class="box"><h4>Teclas del mando</h4>
+      <div class="keys"><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>Espacio</kbd><kbd>Clic</kbd></div>
+      <p class="hint mono">El juego tiene que responder solo a estas teclas. Pedidlo así en el prompt.</p>
+    </div>
+  </article>
+
+  <article class="mod" data-d="2026-10-15" data-s="09:30" data-e="10:15">
+    <div class="mhead"><span class="tag">M8</span><h3>Prompt Battle</h3><span class="time">9:30–10:15</span></div>
+    <p class="desc">Competición en tres rondas para poner a prueba los prompts.</p>
+    <ol class="rounds">
+      <li>Generar a partir de un reto.</li>
+      <li>Replicar un resultado dado.</li>
+      <li>Todas usan exactamente el mismo texto.</li>
+    </ol>
+    <p class="desc">Si salen resultados distintos con el mismo prompt, abrimos un debate guiado: por qué la IA no es determinista y qué implica.</p>
+    <div class="btns"><a class="btn" href="https://batalladeprompts.com/" target="_blank" rel="noopener">Abrir Batalla de Prompts ↗</a></div>
+  </article>
+
+  <article class="mod" data-d="2026-10-15" data-s="10:15" data-e="11:15">
+    <div class="mhead"><span class="tag">M9</span><h3>Integración y pruebas</h3><span class="time">10:15–11:15</span></div>
+    <p class="desc">Se unen juego y mando. Cada equipo prueba la cadena completa (botón, ordenador, juego), resuelve errores y ajusta la jugabilidad en varias iteraciones.</p>
+    <div class="btns"><a class="btn" href="https://www.arcadiabyflu.com/" target="_blank" rel="noopener">Abrir ArcadIA ↗</a></div>
+  </article>
+
+  <article class="mod" data-d="2026-10-15" data-s="11:15" data-e="12:00">
+    <div class="mhead"><span class="tag">M10</span><h3>Arcade demo y presentación</h3><span class="time">11:15–12:00</span></div>
+    <p class="desc">Cada equipo presenta su máquina en un minuto y el resto la juega rotando por los puestos. Votación del público con tarjetas de color.</p>
+  </article>
+
+  <article class="mod" data-d="2026-10-15" data-s="12:00" data-e="12:20">
+    <div class="mhead"><span class="tag">M11</span><h3>Mural</h3><span class="time">12:00–12:15</span></div>
+    <p class="mural">“La IA nunca debería decidir…”</p>
+    <p class="desc">Durante toda la mañana cada participante completa la frase en el mural colectivo. Lo comentamos en grupo al final del día 2.</p>
+  </article>
+</section>
+
+<section id="recursos">
+  <div class="dayhead"><h2>Recursos</h2></div>
+  <div class="grid3">
+    <div class="card"><h3>ArcadIA</h3><p>Plataforma del taller. M4, M9.</p><a class="btn" href="https://www.arcadiabyflu.com/" target="_blank" rel="noopener">Abrir ↗</a></div>
+    <div class="card"><h3>Animal Scanner</h3><p>Clasificación, dataset y sesgo. M1.</p><a class="btn" href="https://ldirml.lovable.app/" target="_blank" rel="noopener">Abrir ↗</a></div>
+    <div class="card"><h3>Batalla de Prompts</h3><p>Tres rondas de prompts. M8.</p><a class="btn" href="https://batalladeprompts.com/" target="_blank" rel="noopener">Abrir ↗</a></div>
+  </div>
+  <div class="grid3" style="margin-top:14px">
+    <div class="card"><h3>Autoevaluación</h3><p>Radar STEAM. M0.</p><div class="btns" style="margin-top:0"><button class="btn alt" data-open="auto">Ver</button><a class="btn alt" href="assets/canvas/autoevaluacion.pdf" download>PDF</a></div></div>
+    <div class="card"><h3>Tipos y análisis forense</h3><p>Desmontar un videojuego. M2.</p><div class="btns" style="margin-top:0"><button class="btn alt" data-open="tipos">Ver</button><a class="btn alt" href="assets/canvas/tipos-analisis-forense.pdf" download>PDF</a></div></div>
+    <div class="card"><h3>Mapeo del juego</h3><p>Decisiones, storyboard y pantalla de inicio. M3.</p><div class="btns" style="margin-top:0"><button class="btn alt" data-open="mapeo">Ver</button><a class="btn alt" href="assets/canvas/mapeo-del-juego.pdf" download>PDF</a></div></div>
+  </div>
+  <div class="grid3" style="margin-top:14px">
+    <div class="card"><h3>Propuesta del taller</h3><p>Documento completo para RedeSTEAM.</p><a class="btn alt" href="docs/propuesta-arcadia-redesteam.pdf" target="_blank" rel="noopener">Abrir PDF</a></div>
+    <div class="card"><h3>Agenda día 1</h3><p>Entender y crear.</p><a class="btn alt" href="docs/agenda-dia1.png" target="_blank" rel="noopener">Ver</a></div>
+    <div class="card"><h3>Agenda día 2</h3><p>Construir y limitar.</p><a class="btn alt" href="docs/agenda-dia2.png" target="_blank" rel="noopener">Ver</a></div>
+  </div>
+  <div class="team" style="margin-top:28px">
+    <div><b>Santi Fuentemilla</b><small>Conducción, interfaz física y articulación del reto</small></div>
+    <div><b>Julia Leirado</b><small>Facilitación y acompañamiento de equipos</small></div>
+    <div><b>Xavi Domínguez</b><small>En remoto · diseño del reto, IA y prototipado</small></div>
+  </div>
+</section>
+
+<footer class="foot"><p>ArcadIA es una plataforma-taller diseñada e implementada por el equipo FLU (Santi, Julia y Xavi). La plataforma se ha desarrollado con el modelo Opus 5.5 de Claude, siempre bajo la supervisión y la revisión humana del equipo FLU.</p></footer>
+
+</main>
+
+<dialog id="lb" aria-label="Canvas ampliado">
+  <form method="dialog"><button>Cerrar ✕</button></form>
+  <img id="lbimg" alt="">
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var imgs={};document.querySelectorAll("[data-img]").forEach(function(b){imgs[b.dataset.img]=b.querySelector("img").src});
+  var lb=document.getElementById('lb'), lbimg=document.getElementById('lbimg');
+  function open(k){ lbimg.src=imgs[k]; if(lb.showModal) lb.showModal(); }
+  document.querySelectorAll('[data-img]').forEach(function(b){b.addEventListener('click',function(){open(b.dataset.img)})});
+  document.querySelectorAll('[data-open]').forEach(function(b){b.addEventListener('click',function(){open(b.dataset.open)})});
+  lb.addEventListener('click',function(e){ if(e.target===lb) lb.close(); });
+
+  var toast=document.getElementById('toast');
+  function say(t){toast.textContent=t;toast.classList.add('show');setTimeout(function(){toast.classList.remove('show')},1600)}
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var txt=document.getElementById(b.dataset.copy).textContent;
+      function fallback(){var r=document.createRange();r.selectNodeContents(document.getElementById(b.dataset.copy));var s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand('copy');say('Prompt copiado')}catch(e){say('Selecciona el texto y cópialo')}}
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){say('Prompt copiado')},fallback)}else fallback();
+    });
+  });
+
+  var pill=document.getElementById('nowpill');
+  function madridNow(){
+    var p=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+    var o={};p.forEach(function(x){o[x.type]=x.value});
+    return {d:o.year+'-'+o.month+'-'+o.day, t:(o.hour==='24'?'00':o.hour)+':'+o.minute};
+  }
+  function tick(){
+    var n=madridNow(), hit=[];
+    document.querySelectorAll('.mod[data-d]').forEach(function(m){
+      var on=m.dataset.d===n.d && n.t>=m.dataset.s && n.t<m.dataset.e;
+      m.classList.toggle('is-now',on);
+      if(on) hit.push(m);
+    });
+    if(hit.length){
+      pill.hidden=false;
+      pill.textContent='Ahora: '+hit.map(function(m){return m.querySelector('.tag').textContent}).join(' + ')+' · '+hit[0].querySelector('h3').textContent;
+      pill.onclick=function(){hit[0].scrollIntoView({block:'start'})};
+      pill.style.cursor='pointer';
+    } else pill.hidden=true;
+  }
+  tick(); setInterval(tick,30000);
+})();
+</script>
+</body>
+</html>
