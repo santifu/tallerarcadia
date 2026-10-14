@@ -201,35 +201,44 @@ section{margin-top:64px}
 .cfg-key:disabled{cursor:default;opacity:1}
 .cfg-out{font-weight:700;margin:12px 0 0}
 @media (max-width:760px){.cfg-keys{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.now nav a.go{background:var(--lime);color:#0A0A0A;border-color:#0A0A0A}
-body.presenting{overflow:hidden}
-.toast{z-index:60}
-#deck{position:fixed;inset:0;z-index:50;background:var(--paper);color:var(--ink);display:flex;flex-direction:column;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
-#deck[hidden]{display:none}
-.deck-bar,.deck-nav{display:flex;align-items:center;gap:16px;padding:10px clamp(16px,3vw,32px);font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.12em;font-size:12px}
-.deck-bar{border-bottom:1.5px solid var(--line)}
-.deck-nav{border-top:1.5px solid var(--line)}
-.deck-label{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700}
-#deck .deck-bar button,#deck .deck-nav button{font:inherit;font-weight:700;cursor:pointer;background:transparent;color:var(--ink);border:1.5px solid var(--line);padding:6px 12px;letter-spacing:inherit;text-transform:inherit}
-#deck .deck-bar button:hover,#deck .deck-nav button:hover{background:var(--lime);color:#0A0A0A}
-.deck-prog{flex:1;height:8px;border:1.5px solid var(--line)}
-.deck-prog i{display:block;height:100%;width:0;background:var(--lime);transition:width .2s}
-.deck-stage{flex:1;overflow:auto;display:flex;padding:32px clamp(16px,5vw,64px)}
-.deck-inner{margin:auto;width:100%;max-width:1100px}
-@media (min-width:1440px) and (min-height:820px){.deck-inner{zoom:1.25}}
-.deck-inner h3{font-size:clamp(30px,4vw,48px);font-weight:800;letter-spacing:-.03em;margin:0}
-.deck-inner .mhead{margin-bottom:8px}
-.deck-inner .desc{font-size:21px;max-width:62ch}
-.deck-inner .dayhead{border-top:0;padding:0;margin:0}
-.deck-inner .dayhead h2{font-size:clamp(56px,9vw,128px)}
-.deck-inner .dayhead p{font-size:16px}
-.deck-inner .break{font-size:clamp(32px,5vw,64px);font-weight:800;margin:0}
-.deck-inner > .box,.deck-inner > .cfg{margin-top:0}
-.deck-inner .canvas{max-width:none;width:auto}
-.deck-inner .canvas img{max-height:calc(100vh - 260px);width:auto;max-width:100%}
-@media (min-width:1440px) and (min-height:820px){.deck-inner .canvas img{max-height:calc(80vh - 210px)}}
-@media (max-width:760px){.deck-count{display:none}}
-@media print{.band,.now,.toast,#deck{display:none}.wrap{margin:0}}
+.tlwrap{overflow-x:auto;margin:0 0 28px;border:1.5px solid var(--line);padding:18px 12px 8px}
+.tl{display:block;width:100%;min-width:720px;height:auto;color:var(--ink)}
+.tl-line{fill:none;stroke:currentColor;stroke-width:2}
+.tl-dash{stroke-dasharray:6 6}
+.tl-dot{fill:var(--lime);stroke:currentColor;stroke-width:2}
+.tl-brk{fill:var(--paper);stroke:currentColor;stroke-width:2}
+.tl-node:hover .tl-dot{fill:currentColor}
+.tl-num{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:13px;fill:currentColor;letter-spacing:.06em}
+.tl-name{font-weight:800;font-size:14px;fill:currentColor}
+.tl-dur,.tl-muted{font-family:"JetBrains Mono",monospace;font-size:12px;fill:var(--muted)}
+.diag{overflow-x:auto;color:var(--ink)}
+.diag svg{display:block;width:100%;min-width:640px;height:auto}
+.diag-n svg{max-width:620px;min-width:0;margin:0 auto}
+.ia-ring{fill:none;stroke:currentColor;stroke-width:1.5}
+.ia-core{fill:var(--lime);stroke:#0A0A0A;stroke-width:1.5}
+.ia-box{fill:none;stroke:currentColor;stroke-width:1.5}
+.ia-dash{stroke-dasharray:5 5}
+.ia-lab{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:13px;letter-spacing:.1em;fill:currentColor}
+.ia-t{font-weight:800;font-size:16px;fill:currentColor}
+.ia-small{font-size:13px;fill:currentColor}
+.ia-on{fill:#0A0A0A}
+.ia-arrow{fill:none;stroke:currentColor;stroke-width:1.5}
+.ia-thick{stroke-width:3}
+.ia-fill{fill:currentColor}
+.types{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;margin-top:6px}
+.scale{display:flex;flex-direction:column;align-items:flex-start;gap:8px;font-family:"JetBrains Mono",monospace;font-size:12px;line-height:1.5}
+.scale i{flex:1;width:2px;margin-left:10px;background:linear-gradient(var(--line),var(--line));position:relative;min-height:60px}
+.scale i::after{content:"";position:absolute;bottom:-2px;left:-5px;border:6px solid transparent;border-top:9px solid var(--line);border-bottom:0}
+.trows{display:grid;gap:10px}
+.iabox .box{margin-top:14px}
+.iabox summary h4{margin:0}
+.trow{display:grid;grid-template-columns:200px minmax(0,1fr);gap:4px 16px;border:1.5px solid var(--line);padding:12px 14px}
+.trow b{font-size:18px;letter-spacing:-.02em;grid-row:span 2}
+.trow p{margin:0}
+.trow:last-child{background:var(--lime);color:#0A0A0A;border-color:#0A0A0A}
+.trow:last-child .hint{color:#0A0A0A}
+@media (max-width:760px){.types{grid-template-columns:1fr}.scale{display:none}.trow{grid-template-columns:1fr}.trow b{grid-row:auto}}
+@media print{.band,.now,.toast{display:none}.wrap{margin:0}}
 </style>
 </head>
 <body>
@@ -250,7 +259,7 @@ body.presenting{overflow:hidden}
 
 <div class="now">
   <nav aria-label="Secciones">
-    <a href="#dia1">Día 1</a><a href="#dia2">Día 2</a><a href="#reto">El reto</a><a href="#recursos">Recursos</a><a href="#facilitacion">Facilitación</a><a href="#diapo-1" class="go" id="deck-go">Presentar ▶</a>
+    <a href="#dia1">Día 1</a><a href="#dia2">Día 2</a><a href="#reto">El reto</a><a href="#recursos">Recursos</a><a href="#facilitacion">Facilitación</a>
   </nav>
   <span class="pill" id="nowpill" hidden></span>
 </div>
@@ -267,8 +276,27 @@ body.presenting{overflow:hidden}
 
 <section id="dia1">
   <div class="dayhead"><h2>Día 1 · Entender y crear</h2><p>Miércoles 14 · 14:30 a 19:15</p></div>
+  <div class="tlwrap"><svg class="tl" viewBox="0 0 1000 260" role="img" aria-label="Línea temporal del día 1" font-family="Archivo, system-ui, sans-serif">
+<path d="M70,110 L215,110" class="tl-line"/>
+<path d="M215,110 L365,110" class="tl-line"/>
+<path d="M365,110 L478,110" class="tl-line"/>
+<path d="M478,110 L590,110" class="tl-line"/>
+<path d="M590,110 C677.5,110 677.5,40 765,40" class="tl-line"/>
+<path d="M590,110 C677.5,110 677.5,180 765,180" class="tl-line"/>
+<path d="M765,40 C847.5,40 847.5,110 930,110" class="tl-line"/>
+<path d="M765,180 C847.5,180 847.5,110 930,110" class="tl-line"/>
+<a href="#m0"><g class="tl-node"><circle cx="70" cy="110" r="10" class="tl-dot"/><text x="70" y="142" class="tl-num" text-anchor="middle">M0</text><text x="70" y="160" class="tl-name" text-anchor="middle">Bienvenida</text><text x="70" y="177" class="tl-dur" text-anchor="middle">30'</text></g></a>
+<a href="#m1"><g class="tl-node"><circle cx="215" cy="110" r="10" class="tl-dot"/><text x="215" y="142" class="tl-num" text-anchor="middle">M1</text><text x="215" y="160" class="tl-name" text-anchor="middle">Animal Scanner</text><text x="215" y="177" class="tl-dur" text-anchor="middle">30'</text></g></a>
+<a href="#m2"><g class="tl-node"><circle cx="365" cy="110" r="10" class="tl-dot"/><text x="365" y="142" class="tl-num" text-anchor="middle">M2</text><text x="365" y="160" class="tl-name" text-anchor="middle">Teoría de juegos</text><text x="365" y="177" class="tl-dur" text-anchor="middle">60'</text></g></a>
+<g><circle cx="478" cy="110" r="5" class="tl-brk"/><text x="478" y="140" class="tl-name tl-muted" text-anchor="middle">Descanso</text><text x="478" y="157" class="tl-dur" text-anchor="middle">15'</text></g>
+<a href="#m3"><g class="tl-node"><circle cx="590" cy="110" r="10" class="tl-dot"/><text x="590" y="142" class="tl-num" text-anchor="middle">M3</text><text x="590" y="160" class="tl-name" text-anchor="middle">Diseño del prompt</text><text x="590" y="177" class="tl-dur" text-anchor="middle">60'</text></g></a>
+<a href="#m4"><g class="tl-node"><circle cx="765" cy="40" r="10" class="tl-dot"/><text x="765" y="72" class="tl-num" text-anchor="middle">M4</text><text x="765" y="90" class="tl-name" text-anchor="middle">Vibe coding</text><text x="765" y="107" class="tl-dur" text-anchor="middle">60'</text></g></a>
+<a href="#m5"><g class="tl-node"><circle cx="765" cy="180" r="10" class="tl-dot"/><text x="765" y="212" class="tl-num" text-anchor="middle">M5</text><text x="765" y="230" class="tl-name" text-anchor="middle">Mando</text><text x="765" y="247" class="tl-dur" text-anchor="middle">60'</text></g></a>
+<a href="#m6"><g class="tl-node"><circle cx="930" cy="110" r="10" class="tl-dot"/><text x="930" y="142" class="tl-num" text-anchor="middle">M6</text><text x="930" y="160" class="tl-name" text-anchor="middle">Cierre y vicio</text><text x="930" y="177" class="tl-dur" text-anchor="middle">15'</text></g></a>
+<text x="765" y="140" class="tl-dur" text-anchor="middle">en paralelo</text>
+</svg></div>
 
-  <article class="mod" data-d="2026-10-14" data-s="14:30" data-e="15:00">
+  <article class="mod" id="m0" data-d="2026-10-14" data-s="14:30" data-e="15:00">
     <div class="mhead"><span class="tag">M0</span><h3>Bienvenida y autoevaluación</h3><span class="time">14:30–15:00</span></div>
     <p class="desc">Presentamos el taller, el equipo facilitador y el reto final: crear un videojuego con IA y construir la máquina para jugarlo. Dinámica para conocernos y autoevaluación inicial de la percepción STEAM.</p>
     <p class="hint mono">Radar del 1 al 6. No se puede repetir la misma puntuación en dos habilidades.</p>
@@ -276,7 +304,7 @@ body.presenting{overflow:hidden}
     <div class="btns"><a class="btn alt" href="assets/canvas/autoevaluacion.pdf" download>Descargar PDF</a></div>
   </article>
 
-  <article class="mod" data-d="2026-10-14" data-s="15:00" data-e="15:30">
+  <article class="mod" id="m1" data-d="2026-10-14" data-s="15:00" data-e="15:30">
     <div class="mhead"><span class="tag">M1</span><h3>Warm-up: Animal Scanner</h3><span class="time">15:00–15:30</span></div>
     <p class="desc">Primer acercamiento a clasificación, modelo, dataset y sesgo. Las ideas se introducen de forma intuitiva, sin diapositivas.</p>
     <div class="gallery">
@@ -290,7 +318,7 @@ body.presenting{overflow:hidden}
     <div class="btns"><a class="btn" href="https://ldirml.lovable.app/" target="_blank" rel="noopener">Abrir Animal Scanner ↗</a></div>
   </article>
 
-  <article class="mod" data-d="2026-10-14" data-s="15:30" data-e="16:30">
+  <article class="mod" id="m2" data-d="2026-10-14" data-s="15:30" data-e="16:30">
     <div class="mhead"><span class="tag">M2</span><h3>Presentación del reto y teoría de juegos</h3><span class="time">15:30–16:30</span></div>
     <p class="desc">Jugamos varias demos breves y desmontamos qué las hace funcionar: objetivo, personaje, reglas, obstáculos, puntuación y controles. El resultado es una clasificación colectiva que sirve de plantilla para diseñar el juego propio.</p>
     <div class="games">
@@ -305,9 +333,60 @@ body.presenting{overflow:hidden}
 
   <p class="break">Descanso · 16:30–16:45</p>
 
-  <article class="mod" data-d="2026-10-14" data-s="16:45" data-e="17:45">
+  <article class="mod" id="m3" data-d="2026-10-14" data-s="16:45" data-e="17:45">
     <div class="mhead"><span class="tag">M3</span><h3>Decisiones de diseño para el prompt</h3><span class="time">16:45–17:45</span></div>
     <p class="desc">Cómo funciona la IA generativa: reconocer frente a generar, qué es un prompt y por qué se equivoca. Después, en equipos y en papel, cada grupo decide tipo de juego, personaje, mecánica y storyboard con post-its, y lo traduce a un primer prompt por capas.</p>
+    <details class="box fac iabox" id="ia">
+      <summary><h4>¿Qué es la IA? Explicación y tipos</h4></summary>
+  <p class="desc" style="margin-top:0">La IA son sistemas basados en máquinas que, a partir de objetivos definidos por personas, hacen predicciones, recomendaciones o toman decisiones que influyen en entornos reales o virtuales. Interactúan con nosotros y actúan en nuestro entorno, directa o indirectamente. A menudo parecen autónomos y pueden adaptar su comportamiento aprendiendo del contexto.</p>
+  <p class="hint mono">Definición: UNICEF (2021)</p>
+  <div class="box"><h4>Unas dentro de otras</h4><div class="diag diag-n"><svg viewBox="0 0 760 430" role="img" aria-labelledby="nt nd" font-family="Archivo, system-ui, sans-serif">
+<title id="nt">Descripción de la IA</title><desc id="nd">Círculos encajados: la inteligencia artificial contiene el aprendizaje automático, que contiene las redes neuronales, que contienen las redes neuronales profundas, que contienen los modelos fundacionales.</desc>
+<ellipse cx="380" cy="215" rx="358.75" ry="205" class="ia-ring"/>
+<text x="380" y="40" class="ia-lab" text-anchor="middle">INTELIGENCIA ARTIFICIAL</text>
+<ellipse cx="380" cy="255" rx="288.75" ry="165" class="ia-ring"/>
+<text x="380" y="120" class="ia-lab" text-anchor="middle">APRENDIZAJE AUTOMÁTICO</text>
+<ellipse cx="380" cy="295" rx="218.75" ry="125" class="ia-ring"/>
+<text x="380" y="200" class="ia-lab" text-anchor="middle">REDES NEURONALES</text>
+<ellipse cx="380" cy="332" rx="154.0" ry="88" class="ia-ring"/>
+<text x="380" y="274" class="ia-lab" text-anchor="middle">REDES NEURONALES PROFUNDAS</text>
+<ellipse cx="380" cy="372" rx="88" ry="44" class="ia-core"/><text x="380" y="368" class="ia-lab ia-on" text-anchor="middle">MODELOS</text><text x="380" y="386" class="ia-lab ia-on" text-anchor="middle">FUNDACIONALES</text></svg></div>
+    <p class="desc">Toda red neuronal es aprendizaje automático, y todo aprendizaje automático es IA, pero no al revés. Las herramientas que usaremos en el taller viven en el círculo más pequeño.</p></div>
+  <div class="box"><h4>Cómo funciona un sistema de IA</h4><div class="diag"><svg viewBox="0 0 1000 400" role="img" aria-labelledby="st sd" font-family="Archivo, system-ui, sans-serif">
+<title id="st">Vista conceptual de un sistema de IA</title><desc id="sd">El entorno se percibe con sensores; los datos llegan al modelo, que se construye con objetivos, medidas de rendimiento, conocimiento experto y datos, y se interpreta para dar predicciones, recomendaciones o decisiones. Los actuadores las llevan de vuelta al entorno.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ia-fill"/></marker></defs>
+<rect x="10" y="10" width="700" height="380" rx="18" class="ia-box"/>
+<text x="30" y="40" class="ia-lab">SISTEMA DE IA</text>
+<rect x="30" y="60" width="440" height="200" rx="12" class="ia-box ia-dash"/>
+<text x="46" y="84" class="ia-small">Lógica operativa</text>
+<rect x="50" y="96" width="400" height="56" class="ia-core"/>
+<text x="66" y="120" class="ia-t ia-on">Modelo</text><text x="66" y="140" class="ia-small ia-on">reglas o función: interpretable o no por las personas</text>
+<rect x="50" y="186" width="190" height="56" class="ia-box"/><text x="62" y="210" class="ia-t">Construcción</text><text x="62" y="229" class="ia-small">automatizada o no</text>
+<rect x="260" y="186" width="190" height="56" class="ia-box"/><text x="272" y="210" class="ia-t">Interpretación</text><text x="272" y="229" class="ia-small">clasificar, razonar…</text>
+<path d="M145,186 L145,156" class="ia-arrow" marker-end="url(#ah)"/><path d="M355,156 L355,184" class="ia-arrow" marker-end="url(#ah)"/>
+<text x="50" y="290" class="ia-small">↑ objetivos · rendimiento</text><text x="50" y="308" class="ia-small">↑ conocimiento experto · datos</text>
+<text x="260" y="290" class="ia-small">↑ objetivos</text><text x="260" y="308" class="ia-small">↑ rendimiento</text>
+<rect x="530" y="80" width="160" height="70" class="ia-box"/><text x="546" y="108" class="ia-t">Sensores</text><text x="546" y="128" class="ia-small">máquina o persona</text>
+<rect x="530" y="230" width="160" height="70" class="ia-box"/><text x="546" y="258" class="ia-t">Actuadores</text><text x="546" y="278" class="ia-small">máquina o persona</text>
+<path d="M530,115 L454,115" class="ia-arrow" marker-end="url(#ah)"/><text x="476" y="176" class="ia-small" text-anchor="middle"> </text>
+<text x="492" y="105" class="ia-small" text-anchor="middle">datos</text>
+<path d="M450,214 C490,214 490,265 528,265" class="ia-arrow" marker-end="url(#ah)"/>
+<text x="478" y="330" class="ia-small">predicciones, recomendaciones</text><text x="478" y="348" class="ia-small">y decisiones</text>
+<rect x="770" y="10" width="220" height="380" rx="18" class="ia-box"/>
+<text x="790" y="40" class="ia-lab">ENTORNO</text>
+<text x="790" y="74" class="ia-small">Real y solo en parte</text><text x="790" y="92" class="ia-small">observable, o virtual y</text><text x="790" y="110" class="ia-small">totalmente observable</text>
+<path d="M800,140 L694,128" class="ia-arrow ia-thick" marker-end="url(#ah)"/><text x="800" y="164" class="ia-t">Percibir</text><text x="800" y="182" class="ia-small">datos en bruto</text>
+<path d="M694,268 L800,268" class="ia-arrow ia-thick" marker-end="url(#ah)"/><text x="800" y="298" class="ia-t">Actuar</text><text x="800" y="316" class="ia-small">física o informativa</text>
+</svg></div>
+    <p class="hint mono">Adaptado de OCDE (2019)</p></div>
+  <div class="box"><h4>Tipos de IA</h4>
+    <div class="types">
+      <div class="scale"><span>Específica<br>Supervisada<br>No generativa<br>Pocos recursos</span><i aria-hidden="true"></i><span>General<br>No supervisada<br>Generativa<br>Muchos recursos</span></div>
+      <div class="trows"><div class="trow"><b>IA básica</b><p>Basada en reglas: la máquina sigue las instrucciones que alguien le ha escrito para resolver una tarea.</p><span class="hint mono">Ej.: control de semáforos</span></div><div class="trow"><b>Aprendizaje automático</b><p>Un modelo que aprende de ejemplos para hacer predicciones.</p><span class="hint mono">Ej.: detectar objetos en una cámara · En el taller: Animal Scanner (M1)</span></div><div class="trow"><b>Redes neuronales profundas</b><p>Un método de cálculo inspirado en cómo funcionan las neuronas de un organismo.</p><span class="hint mono">Ej.: recomendaciones de YouTube, asistentes de voz</span></div><div class="trow"><b>Modelos fundacionales</b><p>Entrenados con enormes cantidades de datos sin etiquetar. Entienden lenguaje, generan texto e imágenes y conversan.</p><span class="hint mono">Ej.: ChatGPT, Claude, generadores de imágenes · En el taller: ArcadIA y Batalla de Prompts</span></div></div>
+    </div>
+    <p class="hint mono">Recursos: datos, infraestructura y capacidad de cálculo. Basado en materiales de Xavi Domínguez, CC BY-SA 4.0.</p>
+  </div>
+    </details>
     <div class="layers">
       <div><b>Rol</b>Quién es la IA</div>
       <div><b>Contexto</b>Tema STEAM, público, estilo</div>
@@ -336,7 +415,7 @@ body.presenting{overflow:hidden}
   <div class="pairwrap">
     <p class="sim">17:45–18:45 · en simultáneo, el equipo se divide</p>
     <div class="pair">
-      <article class="mod" data-d="2026-10-14" data-s="17:45" data-e="18:45">
+      <article class="mod" id="m4" data-d="2026-10-14" data-s="17:45" data-e="18:45">
         <div class="mhead"><span class="tag">M4</span><h3>Vibe coding: primera versión del juego</h3></div>
         <p class="desc">Probar, detectar fallos, reformular y volver a generar hasta tener una versión jugable en el navegador.</p>
         <p class="hint mono">Entrad con el usuario y la contraseña de vuestra tarjeta.</p>
@@ -350,7 +429,7 @@ body.presenting{overflow:hidden}
         </ul>
         <div class="btns"><a class="btn" href="https://www.arcadiabyflu.com/" target="_blank" rel="noopener">Abrir ArcadIA ↗</a></div>
       </article>
-      <article class="mod" data-d="2026-10-14" data-s="17:45" data-e="18:45">
+      <article class="mod" id="m5" data-d="2026-10-14" data-s="17:45" data-e="18:45">
         <div class="mhead"><span class="tag">M5</span><h3>Construcción del mando / máquina</h3></div>
         <p class="desc">Cada equipo diseña su propio mando: cuántos controles, cuáles (joystick, botones o los dos) y dónde van. Después lo fabrica en cartón y lo conecta con Makey Makey para que funcione como un teclado.</p>
         <p class="hint mono">Un botón ocupa una tecla; un joystick, las cuatro flechas. Máximo 6 teclas.</p>
@@ -524,7 +603,7 @@ body.presenting{overflow:hidden}
     </div>
   </div>
 
-  <article class="mod" data-d="2026-10-14" data-s="19:00" data-e="19:15">
+  <article class="mod" id="m6" data-d="2026-10-14" data-s="19:00" data-e="19:15">
     <div class="mhead"><span class="tag">M6</span><h3>Cierre y vicio</h3><span class="time">19:00–19:15</span></div>
     <p class="desc">Probamos las versiones generadas cruzándonos entre equipos para recibir feedback. Cierre reflexivo.</p>
   </article>
@@ -532,8 +611,21 @@ body.presenting{overflow:hidden}
 
 <section id="dia2">
   <div class="dayhead"><h2>Día 2 · Construir y limitar</h2><p>Jueves 15 · 9:15 a 12:20</p></div>
+  <div class="tlwrap"><svg class="tl" viewBox="0 0 900 170" role="img" aria-label="Línea temporal del día 2" font-family="Archivo, system-ui, sans-serif">
+<path d="M80,140 L820,140 L820,118" class="tl-line tl-dash"/>
+<path d="M80,40 L265,40" class="tl-line"/>
+<path d="M265,40 L450,40" class="tl-line"/>
+<path d="M450,40 L635,40" class="tl-line"/>
+<path d="M635,40 L820,40" class="tl-line"/>
+<a href="#m7"><g class="tl-node"><circle cx="80" cy="40" r="10" class="tl-dot"/><text x="80" y="72" class="tl-num" text-anchor="middle">M7</text><text x="80" y="90" class="tl-name" text-anchor="middle">Check matinal</text><text x="80" y="107" class="tl-dur" text-anchor="middle">15'</text></g></a>
+<a href="#m8"><g class="tl-node"><circle cx="265" cy="40" r="10" class="tl-dot"/><text x="265" y="72" class="tl-num" text-anchor="middle">M8</text><text x="265" y="90" class="tl-name" text-anchor="middle">Prompt Battle</text><text x="265" y="107" class="tl-dur" text-anchor="middle">45'</text></g></a>
+<a href="#m9"><g class="tl-node"><circle cx="450" cy="40" r="10" class="tl-dot"/><text x="450" y="72" class="tl-num" text-anchor="middle">M9</text><text x="450" y="90" class="tl-name" text-anchor="middle">Integración</text><text x="450" y="107" class="tl-dur" text-anchor="middle">60'</text></g></a>
+<a href="#m10"><g class="tl-node"><circle cx="635" cy="40" r="10" class="tl-dot"/><text x="635" y="72" class="tl-num" text-anchor="middle">M10</text><text x="635" y="90" class="tl-name" text-anchor="middle">Arcade demo</text><text x="635" y="107" class="tl-dur" text-anchor="middle">45'</text></g></a>
+<a href="#m11"><g class="tl-node"><circle cx="820" cy="40" r="10" class="tl-dot"/><text x="820" y="72" class="tl-num" text-anchor="middle">M11</text><text x="820" y="90" class="tl-name" text-anchor="middle">Mural</text><text x="820" y="107" class="tl-dur" text-anchor="middle">15'</text></g></a>
+<text x="80" y="162" class="tl-dur">Mural «La IA nunca debería decidir…» abierto toda la mañana</text>
+</svg></div>
 
-  <article class="mod" data-d="2026-10-15" data-s="09:15" data-e="09:30">
+  <article class="mod" id="m7" data-d="2026-10-15" data-s="09:15" data-e="09:30">
     <div class="mhead"><span class="tag">M7</span><h3>Check matinal y elección de reto</h3><span class="time">9:15–9:30</span></div>
     <p class="desc">Repaso de lo aprendido y de la propuesta de juego de cada equipo. Cada grupo revisa el diseño de su mando y qué teclas usa, y se reparte entre vibe coding y construcción.</p>
     <div class="box"><h4>Teclas del mando</h4>
@@ -542,7 +634,7 @@ body.presenting{overflow:hidden}
     </div>
   </article>
 
-  <article class="mod" data-d="2026-10-15" data-s="09:30" data-e="10:15">
+  <article class="mod" id="m8" data-d="2026-10-15" data-s="09:30" data-e="10:15">
     <div class="mhead"><span class="tag">M8</span><h3>Prompt Battle</h3><span class="time">9:30–10:15</span></div>
     <p class="desc">Competición en tres rondas para poner a prueba los prompts.</p>
     <ol class="rounds">
@@ -554,20 +646,20 @@ body.presenting{overflow:hidden}
     <div class="btns"><a class="btn" href="https://batalladeprompts.com/" target="_blank" rel="noopener">Abrir Batalla de Prompts ↗</a></div>
   </article>
 
-  <article class="mod" data-d="2026-10-15" data-s="10:15" data-e="11:15">
+  <article class="mod" id="m9" data-d="2026-10-15" data-s="10:15" data-e="11:15">
     <div class="mhead"><span class="tag">M9</span><h3>Integración y pruebas</h3><span class="time">10:15–11:15</span></div>
     <p class="desc">Se unen juego y mando. Cada equipo prueba la cadena completa (botón, ordenador, juego), resuelve errores y ajusta la jugabilidad en varias iteraciones.</p>
     <p class="hint mono">Antes de jugar con el mando, un clic dentro del juego: las teclas van a donde se hizo el último clic. Si no, las flechas escriben en el chat. El botón CLIC hace clic donde esté el ratón: dejadlo encima del juego.</p>
     <div class="btns"><a class="btn" href="https://www.arcadiabyflu.com/" target="_blank" rel="noopener">Abrir ArcadIA ↗</a></div>
   </article>
 
-  <article class="mod" data-d="2026-10-15" data-s="11:15" data-e="12:00">
+  <article class="mod" id="m10" data-d="2026-10-15" data-s="11:15" data-e="12:00">
     <div class="mhead"><span class="tag">M10</span><h3>Arcade demo y presentación</h3><span class="time">11:15–12:00</span></div>
     <p class="desc">Cada equipo presenta su máquina en un minuto y el resto la juega rotando por los puestos. Votación del público con tarjetas de color.</p>
     <p class="hint mono">Cada juego tiene su página pública en /juego/nombre-del-equipo (botón «Ver página pública» del Estudio). Sigue funcionando después del taller: se puede enseñar en casa.</p>
   </article>
 
-  <article class="mod" data-d="2026-10-15" data-s="12:00" data-e="12:20">
+  <article class="mod" id="m11" data-d="2026-10-15" data-s="12:00" data-e="12:20">
     <div class="mhead"><span class="tag">M11</span><h3>Mural</h3><span class="time">12:00–12:15</span></div>
     <p class="mural">“La IA nunca debería decidir…”</p>
     <p class="desc">Durante toda la mañana cada participante completa la frase en el mural colectivo. Lo comentamos en grupo al final del día 2.</p>
@@ -580,7 +672,7 @@ body.presenting{overflow:hidden}
 </section>
 
 <section id="facilitacion">
-  <div class="dayhead"><h2>Facilitación</h2><p>Solo para el equipo FLU</p></div>
+  <div class="dayhead"><h2>Facilitación</h2><p>Para quien dinamiza el taller</p></div>
   <details class="box fac" open>
     <summary><h4>Antes</h4></summary>
     <ul class="steps">
@@ -607,12 +699,12 @@ body.presenting{overflow:hidden}
       <li><b>El juego no responde al teclado o al mando.</b> Clic dentro del juego.</li>
       <li><b>«Ya estoy pensando otro cambio…»</b> Otro miembro del equipo ha escrito a la vez. Esperar, como mucho 3 minutos.</li>
       <li><b>«No he conseguido hacer ese cambio sin romper el juego…»</b> Pedirlo de otra forma o en partes más pequeñas.</li>
-      <li><b>«No hemos podido hablar con el servidor…»</b> Es la wifi del aula. Si les pasa a todos y no se arregla, pausar a todos y avisar a Xavi.</li>
+      <li><b>«No hemos podido hablar con el servidor…»</b> Es la wifi del aula. Si les pasa a todos y no se arregla, pausar a todos y avisar a la persona técnica de ArcadIA.</li>
       <li><b>Imagen fallida.</b> «Probar otra vez». Si el filtro la descarta, «Otra versión» o describirla de otra manera. El juego sigue con formas de color.</li>
       <li><b>Sin mensajes o imágenes.</b> «Ver equipo» → «+10». Deshacer y versiones siguen funcionando.</li>
       <li><b>Cuenta bloqueada</b> (10 fallos en 15 min). Esperar 15 minutos; mientras, usar la cuenta de otro miembro del equipo.</li>
       <li><b>Contraseña perdida.</b> «Nueva contraseña» en la página de la sesión. Solo se ve una vez: apuntarla.</li>
-      <li><b>No consiguen crear el juego.</b> Tienen 5 intentos y el tope no se amplía desde el panel: avisar a Xavi.</li>
+      <li><b>No consiguen crear el juego.</b> Tienen 5 intentos y el tope no se amplía desde el panel: avisar a la persona técnica de ArcadIA.</li>
     </ul>
   </details>
   <details class="box fac">
@@ -655,12 +747,6 @@ body.presenting{overflow:hidden}
   <img id="lbimg" alt="">
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<div id="deck" hidden role="region" aria-label="Modo presentación">
-  <div class="deck-bar"><span class="deck-label" id="deck-label"></span><span class="deck-count" id="deck-count"></span><button type="button" id="deck-fs" title="Pantalla completa (F)">⛶</button><button type="button" id="deck-x" title="Salir (Esc)">Salir ✕</button></div>
-  <div class="deck-stage" id="deck-stage"><div class="deck-inner" id="deck-inner"></div></div>
-  <div class="deck-nav"><button type="button" id="deck-prev">← Anterior</button><div class="deck-prog"><i id="deck-prog"></i></div><button type="button" id="deck-next">Siguiente →</button></div>
-</div>
 
 <script>
 (function(){
@@ -730,94 +816,6 @@ body.presenting{overflow:hidden}
       document.getElementById('cfg-chat').textContent=used.length?('Nuestro mando solo tiene estas teclas: '+list+'. Haz que el juego se juegue solo con ellas.'):'';
     }
     draw();
-  })();
-
-  (function(){
-    var deck=document.getElementById('deck'), inner=document.getElementById('deck-inner'), stage=document.getElementById('deck-stage');
-    var slides=[], cur=0, moved=[];
-    function q(s,r){return (r||document).querySelector(s)}
-    function kids(el){return Array.prototype.slice.call(el.children)}
-    function add(nodes,label){nodes=nodes.filter(Boolean); if(nodes.length) slides.push({nodes:nodes,label:label})}
-    function split(parent,sel,label){
-      var g=[];
-      kids(parent).forEach(function(c){ if(c.matches(sel)&&g.length){add(g,label);g=[]} g.push(c); });
-      add(g,label);
-    }
-    function modLabel(m){return q('.tag',m).textContent+' · '+q('h3',m).textContent}
-    function day(sec){
-      var dh=q('.dayhead',sec);
-      add([dh],q('h2',dh).textContent);
-      kids(sec).forEach(function(c){
-        if(c.matches('article.mod')) split(c,c.querySelectorAll('.box').length>1?'.box,.canvas':'.canvas',modLabel(c));
-        else if(c.matches('.break')) add([c],'Descanso');
-        else if(c.matches('.pairwrap')){
-          var mods=c.querySelectorAll('article.mod');
-          add([q('.sim',c),q('.pair',c)],'M4 + M5 · en simultáneo');
-          var es=q('#esquema',c);
-          if(es) split(es,'.cfg,.refs,.sim,.steps',modLabel(mods[mods.length-1]));
-        }
-      });
-    }
-    add([q('header.frame')],'ArcadIA');
-    add([q('#reto')],'El reto');
-    day(q('#dia1'));
-    day(q('#dia2'));
-    add([q('#recursos .grid3')],'Recursos');
-
-    function restore(){
-      moved.forEach(function(m){ m.ph.parentNode.insertBefore(m.n,m.ph); m.ph.remove(); });
-      moved=[];
-    }
-    function show(i){
-      cur=Math.max(0,Math.min(slides.length-1,i));
-      restore();
-      slides[cur].nodes.forEach(function(n){
-        var ph=document.createComment('diapo');
-        n.parentNode.insertBefore(ph,n); moved.push({n:n,ph:ph}); inner.appendChild(n);
-      });
-      document.getElementById('deck-label').textContent=slides[cur].label;
-      document.getElementById('deck-count').textContent=(cur+1)+' / '+slides.length;
-      document.getElementById('deck-prog').style.width=((cur+1)/slides.length*100)+'%';
-      stage.scrollTop=0;
-      history.replaceState(null,'','#diapo-'+(cur+1));
-    }
-    function start(i){
-      document.body.classList.add('presenting'); deck.hidden=false; show(i);
-    }
-    function stop(){
-      var first=slides[cur].nodes[0];
-      restore(); deck.hidden=true; document.body.classList.remove('presenting');
-      history.replaceState(null,'',location.pathname+location.search);
-      if(document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen();
-      first.scrollIntoView({block:'start'});
-    }
-    function fs(){
-      if(document.fullscreenElement) document.exitFullscreen();
-      else if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
-    }
-    document.getElementById('deck-go').addEventListener('click',function(e){
-      e.preventDefault();
-      var now=q('.mod.is-now'), i=0;
-      if(now) slides.some(function(s,k){ if(s.nodes.some(function(n){return now.contains(n)||n.contains(now)})){i=k;return true} });
-      start(i);
-    });
-    document.getElementById('deck-prev').addEventListener('click',function(){show(cur-1)});
-    document.getElementById('deck-next').addEventListener('click',function(){show(cur+1)});
-    document.getElementById('deck-x').addEventListener('click',stop);
-    document.getElementById('deck-fs').addEventListener('click',fs);
-    document.addEventListener('keydown',function(e){
-      if(deck.hidden||document.getElementById('lb').open||e.altKey||e.ctrlKey||e.metaKey) return;
-      if(e.target.closest&&e.target.closest('input,textarea,select')) return;
-      var k=e.key;
-      if(k==='ArrowRight'||k==='PageDown'||(k===' '&&!e.target.closest('button,a'))){e.preventDefault();show(cur+1)}
-      else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();show(cur-1)}
-      else if(k==='Home'){e.preventDefault();show(0)}
-      else if(k==='End'){e.preventDefault();show(slides.length-1)}
-      else if(k==='Escape'){stop()}
-      else if(k==='f'||k==='F'){fs()}
-    });
-    var m=location.hash.match(/^#diapo-(\d+)$/);
-    if(m) start(+m[1]-1);
   })();
 })();
 </script>
