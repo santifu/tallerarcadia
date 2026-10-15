@@ -231,6 +231,8 @@ section{margin-top:64px}
 .scale i{flex:1;width:2px;margin-left:10px;background:linear-gradient(var(--line),var(--line));position:relative;min-height:60px}
 .scale i::after{content:"";position:absolute;bottom:-2px;left:-5px;border:6px solid transparent;border-top:9px solid var(--line);border-bottom:0}
 .trows{display:grid;gap:10px}
+.game{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.game h3{margin:0;flex:1}
 .iabox .box{margin-top:14px}
 .iabox summary h4{margin:0}
 .trow{display:grid;grid-template-columns:200px minmax(0,1fr);gap:4px 16px;border:1.5px solid var(--line);padding:12px 14px}
@@ -308,7 +310,7 @@ section{margin-top:64px}
 
 <div class="now">
   <nav aria-label="Secciones">
-    <a href="#dia1">Día 1</a><a href="#dia2">Día 2</a><a href="#reto">El reto</a><a href="#recursos">Recursos</a><a href="#facilitacion">Facilitación</a><button type="button" class="present" id="present">▶ Presentar</button><button type="button" class="themebtn" id="themebtn" aria-label="Cambiar entre modo claro y oscuro">◐ Oscuro</button>
+    <a href="#dia1">Día 1</a><a href="#dia2">Día 2</a><a href="#reto">El reto</a><a href="#juegos">Juegos</a><a href="#recursos">Recursos</a><a href="#facilitacion">Facilitación</a><button type="button" class="present" id="present">▶ Presentar</button><button type="button" class="themebtn" id="themebtn" aria-label="Cambiar entre modo claro y oscuro">◐ Oscuro</button>
   </nav>
   <span class="pill" id="nowpill" hidden></span>
 </div>
@@ -659,19 +661,19 @@ section{margin-top:64px}
 </section>
 
 <section id="dia2">
-  <div class="dayhead"><h2>Día 2 · Construir y limitar</h2><p>Jueves 15 · 9:15 a 12:20</p></div>
+  <div class="dayhead"><h2>Día 2 · Construir y limitar</h2><p>Jueves 15 · 9:15 a 12:15</p></div>
   <div class="tlwrap"><svg class="tl" viewBox="0 0 900 170" role="img" aria-label="Línea temporal del día 2" font-family="Archivo, system-ui, sans-serif">
-<path d="M80,140 L820,140 L820,118" class="tl-line tl-dash"/>
+<path d="M80,140 L635,140 L635,118" class="tl-line tl-dash"/>
 <path d="M80,40 L265,40" class="tl-line"/>
 <path d="M265,40 L450,40" class="tl-line"/>
 <path d="M450,40 L635,40" class="tl-line"/>
 <path d="M635,40 L820,40" class="tl-line"/>
 <a href="#m7"><g class="tl-node"><circle cx="80" cy="40" r="10" class="tl-dot"/><text x="80" y="72" class="tl-num" text-anchor="middle">M7</text><text x="80" y="90" class="tl-name" text-anchor="middle">Check matinal</text><text x="80" y="107" class="tl-dur" text-anchor="middle">15'</text></g></a>
-<a href="#m8"><g class="tl-node"><circle cx="265" cy="40" r="10" class="tl-dot"/><text x="265" y="72" class="tl-num" text-anchor="middle">M8</text><text x="265" y="90" class="tl-name" text-anchor="middle">Prompt Battle</text><text x="265" y="107" class="tl-dur" text-anchor="middle">45'</text></g></a>
-<a href="#m9"><g class="tl-node"><circle cx="450" cy="40" r="10" class="tl-dot"/><text x="450" y="72" class="tl-num" text-anchor="middle">M9</text><text x="450" y="90" class="tl-name" text-anchor="middle">Integración</text><text x="450" y="107" class="tl-dur" text-anchor="middle">60'</text></g></a>
-<a href="#m10"><g class="tl-node"><circle cx="635" cy="40" r="10" class="tl-dot"/><text x="635" y="72" class="tl-num" text-anchor="middle">M10</text><text x="635" y="90" class="tl-name" text-anchor="middle">Arcade demo</text><text x="635" y="107" class="tl-dur" text-anchor="middle">45'</text></g></a>
-<a href="#m11"><g class="tl-node"><circle cx="820" cy="40" r="10" class="tl-dot"/><text x="820" y="72" class="tl-num" text-anchor="middle">M11</text><text x="820" y="90" class="tl-name" text-anchor="middle">Mural</text><text x="820" y="107" class="tl-dur" text-anchor="middle">15'</text></g></a>
-<text x="80" y="162" class="tl-dur">Mural «La IA nunca debería decidir…» abierto toda la mañana</text>
+<a href="#m8"><g class="tl-node"><circle cx="265" cy="40" r="10" class="tl-dot"/><text x="265" y="72" class="tl-num" text-anchor="middle">M8</text><text x="265" y="90" class="tl-name" text-anchor="middle">Integración</text><text x="265" y="107" class="tl-dur" text-anchor="middle">60'</text></g></a>
+<a href="#m9"><g class="tl-node"><circle cx="450" cy="40" r="10" class="tl-dot"/><text x="450" y="72" class="tl-num" text-anchor="middle">M9</text><text x="450" y="90" class="tl-name" text-anchor="middle">Arcade demo</text><text x="450" y="107" class="tl-dur" text-anchor="middle">45'</text></g></a>
+<a href="#m10"><g class="tl-node"><circle cx="635" cy="40" r="10" class="tl-dot"/><text x="635" y="72" class="tl-num" text-anchor="middle">M10</text><text x="635" y="90" class="tl-name" text-anchor="middle">Mural</text><text x="635" y="107" class="tl-dur" text-anchor="middle">15'</text></g></a>
+<a href="#m11"><g class="tl-node"><circle cx="820" cy="40" r="10" class="tl-dot"/><text x="820" y="72" class="tl-num" text-anchor="middle">M11</text><text x="820" y="90" class="tl-name" text-anchor="middle">Prompt Battle show</text><text x="820" y="107" class="tl-dur" text-anchor="middle">45'</text></g></a>
+<text x="80" y="162" class="tl-dur">Mural «¿Por qué es útil la IA en tu día a día?» abierto toda la mañana</text>
 </svg></div>
 
   <article class="mod" id="m7" data-d="2026-10-15" data-s="09:15" data-e="09:30">
@@ -683,9 +685,33 @@ section{margin-top:64px}
     </div>
   </article>
 
-  <article class="mod" id="m8" data-d="2026-10-15" data-s="09:30" data-e="10:15">
-    <div class="mhead"><span class="tag">M8</span><h3>Prompt Battle</h3><span class="time">9:30–10:15</span></div>
-    <p class="desc">Competición en tres rondas para poner a prueba los prompts.</p>
+  <article class="mod" id="m8" data-d="2026-10-15" data-s="09:30" data-e="10:30">
+    <div class="mhead"><span class="tag">M8</span><h3>Integración y pruebas</h3><span class="time">9:30–10:30</span></div>
+    <p class="desc">Se unen juego y mando. Cada equipo prueba la cadena completa (botón, ordenador, juego), resuelve errores y ajusta la jugabilidad en varias iteraciones.</p>
+    <p class="hint mono">Antes de jugar con el mando, un clic dentro del juego: las teclas van a donde se hizo el último clic. Si no, las flechas escriben en el chat. El botón CLIC hace clic donde esté el ratón: dejadlo encima del juego.</p>
+    <div class="btns"><a class="btn" href="https://www.arcadiabyflu.com/" target="_blank" rel="noopener">Abrir ArcadIA ↗</a></div>
+  </article>
+
+  <article class="mod" id="m9" data-d="2026-10-15" data-s="10:30" data-e="11:15">
+    <div class="mhead"><span class="tag">M9</span><h3>Arcade demo y presentación</h3><span class="time">10:30–11:15</span></div>
+    <p class="desc">Cada equipo presenta su máquina en un minuto y el resto la juega rotando por los puestos. Votación del público con tarjetas de color.</p>
+    <p class="hint mono">Cada juego tiene su página pública en /juego/nombre-del-equipo (botón «Ver página pública» del Estudio). Sigue funcionando después del taller: se puede enseñar en casa.</p>
+  </article>
+
+  <article class="mod" id="m10" data-d="2026-10-15" data-s="11:15" data-e="11:30">
+    <div class="mhead"><span class="tag">M10</span><h3>Mural</h3><span class="time">11:15–11:30</span></div>
+    <p class="mural">¿Por qué es útil la IA en tu día a día?</p>
+    <p class="desc">Durante toda la mañana cada participante responde a la pregunta en el mural colectivo. Lo comentamos en grupo antes del cierre.</p>
+    <div class="box">
+      <h4>Huella de vuestro juego</h4>
+      <p class="desc" style="margin-top:0">En el Estudio, la pestaña «Huella de vuestro juego» estima la energía y el CO₂e que ha gastado crear vuestro juego. Generar imágenes gasta mucho más que el texto.</p>
+      <p class="hint mono">Para el debate: ¿cuántas cargas de móvil ha costado vuestro juego? ¿Qué imágenes no hacían falta?</p>
+    </div>
+  </article>
+
+  <article class="mod" id="m11" data-d="2026-10-15" data-s="11:30" data-e="12:20">
+    <div class="mhead"><span class="tag">M11</span><h3>Prompt Battle show</h3><span class="time">11:30–12:15</span></div>
+    <p class="desc">El cierre del taller: competición en directo en tres rondas para poner a prueba los prompts, con los resultados en el proyector.</p>
     <ol class="rounds">
       <li>Generar a partir de un reto.</li>
       <li>Replicar un resultado dado.</li>
@@ -694,30 +720,19 @@ section{margin-top:64px}
     <p class="desc">Si salen resultados distintos con el mismo prompt, abrimos un debate guiado: por qué la IA no es determinista y qué implica.</p>
     <div class="btns"><a class="btn" href="https://batalladeprompts.com/" target="_blank" rel="noopener">Abrir Batalla de Prompts ↗</a></div>
   </article>
+</section>
 
-  <article class="mod" id="m9" data-d="2026-10-15" data-s="10:15" data-e="11:15">
-    <div class="mhead"><span class="tag">M9</span><h3>Integración y pruebas</h3><span class="time">10:15–11:15</span></div>
-    <p class="desc">Se unen juego y mando. Cada equipo prueba la cadena completa (botón, ordenador, juego), resuelve errores y ajusta la jugabilidad en varias iteraciones.</p>
-    <p class="hint mono">Antes de jugar con el mando, un clic dentro del juego: las teclas van a donde se hizo el último clic. Si no, las flechas escriben en el chat. El botón CLIC hace clic donde esté el ratón: dejadlo encima del juego.</p>
-    <div class="btns"><a class="btn" href="https://www.arcadiabyflu.com/" target="_blank" rel="noopener">Abrir ArcadIA ↗</a></div>
-  </article>
-
-  <article class="mod" id="m10" data-d="2026-10-15" data-s="11:15" data-e="12:00">
-    <div class="mhead"><span class="tag">M10</span><h3>Arcade demo y presentación</h3><span class="time">11:15–12:00</span></div>
-    <p class="desc">Cada equipo presenta su máquina en un minuto y el resto la juega rotando por los puestos. Votación del público con tarjetas de color.</p>
-    <p class="hint mono">Cada juego tiene su página pública en /juego/nombre-del-equipo (botón «Ver página pública» del Estudio). Sigue funcionando después del taller: se puede enseñar en casa.</p>
-  </article>
-
-  <article class="mod" id="m11" data-d="2026-10-15" data-s="12:00" data-e="12:20">
-    <div class="mhead"><span class="tag">M11</span><h3>Mural</h3><span class="time">12:00–12:15</span></div>
-    <p class="mural">“La IA nunca debería decidir…”</p>
-    <p class="desc">Durante toda la mañana cada participante completa la frase en el mural colectivo. Lo comentamos en grupo al final del día 2.</p>
-    <div class="box">
-      <h4>Huella de vuestro juego</h4>
-      <p class="desc" style="margin-top:0">En el Estudio, la pestaña «Huella de vuestro juego» estima la energía y el CO₂e que ha gastado crear vuestro juego. Generar imágenes gasta mucho más que el texto.</p>
-      <p class="hint mono">Para el debate: ¿cuántas cargas de móvil ha costado vuestro juego? ¿Qué imágenes no hacían falta?</p>
-    </div>
-  </article>
+<section id="juegos">
+  <div class="dayhead"><h2>Juegos creados con ArcadIA</h2><p>RedeSTEAM Madrid 2026</p></div>
+  <div class="grid3">
+    <div class="card game"><span class="tag">Equipo 1</span><h3>Patinete por el bosque</h3><a class="btn" href="https://www.arcadiabyflu.com/juego/equipo-1-2" target="_blank" rel="noopener">Jugar ↗</a></div>
+    <div class="card game"><span class="tag">Equipo 2</span><h3>Voleibol en las nubes</h3><a class="btn" href="https://www.arcadiabyflu.com/juego/equipo-2-2" target="_blank" rel="noopener">Jugar ↗</a></div>
+    <div class="card game"><span class="tag">Equipo 3</span><h3>Guardianes del océano</h3><a class="btn" href="https://www.arcadiabyflu.com/juego/equipo-3-2" target="_blank" rel="noopener">Jugar ↗</a></div>
+    <div class="card game"><span class="tag">Equipo 4</span><h3>Esquiva los virus</h3><a class="btn" href="https://www.arcadiabyflu.com/juego/equipo-4-2" target="_blank" rel="noopener">Jugar ↗</a></div>
+    <div class="card game"><span class="tag">Equipo 5</span><h3>Safari Saltarín</h3><a class="btn" href="https://www.arcadiabyflu.com/juego/equipo-5-2" target="_blank" rel="noopener">Jugar ↗</a></div>
+    <div class="card game"><span class="tag">Equipo 6</span><h3>Robot en las nubes: Misión STEAM</h3><a class="btn" href="https://www.arcadiabyflu.com/juego/equipo-6-2" target="_blank" rel="noopener">Jugar ↗</a></div>
+  </div>
+  <p class="hint mono">Se juegan con teclado (flechas, espacio y clic) o con el mando de cada equipo. Un clic dentro del juego antes de empezar.</p>
 </section>
 
 <section id="facilitacion">
@@ -770,9 +785,9 @@ section{margin-top:64px}
 <section id="recursos">
   <div class="dayhead"><h2>Recursos</h2></div>
   <div class="grid3">
-    <div class="card"><h3>ArcadIA</h3><p>Plataforma del taller. M4, M9.</p><a class="btn" href="https://www.arcadiabyflu.com/" target="_blank" rel="noopener">Abrir ↗</a></div>
+    <div class="card"><h3>ArcadIA</h3><p>Plataforma del taller. M4, M8.</p><a class="btn" href="https://www.arcadiabyflu.com/" target="_blank" rel="noopener">Abrir ↗</a></div>
     <div class="card"><h3>Animal Scanner</h3><p>Clasificación, dataset y sesgo. M1.</p><a class="btn" href="https://ldirml.lovable.app/" target="_blank" rel="noopener">Abrir ↗</a></div>
-    <div class="card"><h3>Batalla de Prompts</h3><p>Tres rondas de prompts. M8.</p><a class="btn" href="https://batalladeprompts.com/" target="_blank" rel="noopener">Abrir ↗</a></div>
+    <div class="card"><h3>Batalla de Prompts</h3><p>Tres rondas de prompts. M11.</p><a class="btn" href="https://batalladeprompts.com/" target="_blank" rel="noopener">Abrir ↗</a></div>
   </div>
   <div class="grid3" style="margin-top:14px">
     <div class="card"><h3>Autoevaluación</h3><p>Radar STEAM. M0.</p><div class="btns" style="margin-top:0"><button class="btn alt" data-open="auto">Ver</button><a class="btn alt" href="assets/canvas/autoevaluacion.pdf" download>PDF</a></div></div>
@@ -923,6 +938,8 @@ section{margin-top:64px}
             c.className=''; w.appendChild(c); return w;}});
         });
       });
+      var gs=document.getElementById('juegos');
+      if(gs) slides.push({label:'Juegos', key:'juegos', el:function(){var w=el('div'); w.appendChild(el('p','kicker',gs.querySelector('.dayhead p').textContent)); w.appendChild(el('h2','deck-title',gs.querySelector('h2').textContent)); var g=prep(gs.querySelector('.grid3')); w.appendChild(g); return w;}});
     }
     function show(i){
       cur=Math.max(0,Math.min(slides.length-1,i));
